@@ -1,0 +1,6 @@
+id,title,status,duration
+TC-001,Login with valid credentials,pass,1.2
+TC-002,Login with wrong password,fail,0.8
+TC-003,Logout,pass,0.5
+TC-004,"Search, exact match",pass,2.1
+TC-005,Add item to cart,blocked,0

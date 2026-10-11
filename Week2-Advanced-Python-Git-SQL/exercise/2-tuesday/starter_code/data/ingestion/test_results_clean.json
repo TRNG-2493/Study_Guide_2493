@@ -1,0 +1,9 @@
+{
+  "suite": "CheckoutTests",
+  "tests": [
+    {"id": "TC-601", "title": "Pay with card", "status": "pass", "duration": 2.4},
+    {"id": "TC-602", "title": "Pay with expired card", "status": "fail", "duration": 1.9},
+    {"id": "TC-603", "title": "Apply discount code", "status": "pass", "duration": 1.1},
+    {"id": "TC-604", "title": "Remove last item", "status": "blocked", "duration": 0.0}
+  ]
+}

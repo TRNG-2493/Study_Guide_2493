@@ -1,0 +1,12 @@
+{
+  "default_customer": { "first": "Asha", "last": "Patel", "postal": "560001" },
+  "products": ["Sauce Labs Backpack", "Sauce Labs Bike Light"],
+  "validation_cases": [
+    { "id": "missing-first-name", "first": "", "last": "Patel", "postal": "560001",
+      "expected_error": "First Name is required" }
+  ],
+  "sort_cases": [
+    { "id": "price-low-high", "option": "Price (low to high)",
+      "first_item": "Sauce Labs Onesie", "last_item": "Sauce Labs Fleece Jacket" }
+  ]
+}

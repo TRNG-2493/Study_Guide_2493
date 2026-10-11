@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="SmokeTests">
+    <testcase id="TC-1101" status="pass">
+      <title>Home page loads</title>
+      <duration>0.9</duration>
+    </testcase>
+    <testcase id="TC-1102" status="fail">
+      <title>Search box visible</title>
+    </testcase>
+    <testcase status="pass">
+      <title>Case with no id attribute</title>
+      <duration>0.5</duration>
+    </testcase>
+  </testsuite>
+  <testsuite name="RegressionTests">
+    <testcase id="TC-1104" status="pass">
+      <title>Search</title>
+      <duration>twelve</duration>
+    </testcase>
+    <testcase id="TC-1105" status="skipped">
+      <title>Profile photo upload</title>
+      <duration>1.4</duration>
+    </testcase>
+    <testcase id="TC-1106" status="blocked">
+      <title>Payment page</title>
+      <duration>0</duration>
+    </testcase>
+  </testsuite>
+</testsuites>

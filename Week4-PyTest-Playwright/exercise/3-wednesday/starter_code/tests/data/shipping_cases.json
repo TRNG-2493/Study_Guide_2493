@@ -1,0 +1,5 @@
+[
+  {"id": "local-light",         "weight": 2.0,  "zone": "local",         "expected": 4.00},
+  {"id": "national-light",      "weight": 1.0,  "zone": "national",      "expected": 6.50},
+  {"id": "international-heavy", "weight": 20.0, "zone": "international", "expected": 30.00}
+]

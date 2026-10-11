@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QE Shop - Login</title><script src="/config.js"></script><link rel="stylesheet" href="/styles.css"></head>
+<body data-page="login">
+<main><div class="panel" style="margin:60px auto 0">
+  <h1>QE Shop</h1>
+  <form id="login-form" onsubmit="return false">
+    <label for="user-name">Username</label>
+    <input id="user-name" data-test="username" autocomplete="off">
+    <label for="password">Password</label>
+    <input id="password" type="password" data-test="password" autocomplete="off">
+    <div class="error" data-test="error" hidden></div>
+    <div class="actions"><button id="login-button" class="btn btn-primary" data-test="login-button" type="submit">Login</button></div>
+  </form>
+  <p class="hint">Accepted users: standard_user, locked_out_user (blocked). Password for both: secret_sauce (practice data only).</p>
+</div></main>
+<script src="/app.js"></script></body></html>

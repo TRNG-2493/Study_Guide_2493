@@ -1,0 +1,12 @@
+__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+.cache/
+reports/*
+!reports/a11y/
+reports/a11y/*
+!reports/a11y/.gitkeep
+public/
+.env
+.ruff_cache/

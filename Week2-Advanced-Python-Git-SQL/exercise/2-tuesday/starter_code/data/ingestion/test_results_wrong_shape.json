@@ -1,0 +1,3 @@
+[
+  {"id": "TC-901", "title": "A bare list, not an object with a 'tests' key", "status": "pass", "duration": 1.0}
+]

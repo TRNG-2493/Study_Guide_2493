@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ApiTests" tests="3">
+  <testcase id="TC-1001" status="pass">
+    <title>GET /users returns 200</title>
+    <duration>0.4</duration>
+  </testcase>
+  <testcase id="TC-1002" status="fail">
+    <title>POST /users rejects empty body</title>
+    <duration>0.7</duration>
+    <message>Expected HTTP 400, got 500</message>
+  </testcase>
+  <testcase id="TC-1003" status="pass">
+    <title>DELETE /users/42 returns 204</title>
+    <duration>0.3</duration>
+  </testcase>
+</testsuite>

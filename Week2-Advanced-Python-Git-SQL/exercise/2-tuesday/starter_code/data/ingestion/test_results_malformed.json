@@ -1,0 +1,7 @@
+{
+  "suite": "CheckoutTests",
+  "tests": [
+    {"id": "TC-801", "title": "Pay with card", "status": "pass", "duration": 2.4},
+    {"id": "TC-802", "title": "Pay with expired card", "status": "fail", "duration": 1.9},
+  ]
+}

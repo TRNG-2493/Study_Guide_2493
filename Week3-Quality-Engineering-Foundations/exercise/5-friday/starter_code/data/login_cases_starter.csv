@@ -1,0 +1,6 @@
+case_id,username,password,prior_wrong_attempts,expected
+TD-01,alice,Passw0rd!,0,OK
+TD-02,alice,wrong-pass,0,DENIED
+TD-03,alice,Passw0rd!,3,LOCKED
+TD-04,nobody,Passw0rd!,0,DENIED
+TD-05,alice,,0,DENIED

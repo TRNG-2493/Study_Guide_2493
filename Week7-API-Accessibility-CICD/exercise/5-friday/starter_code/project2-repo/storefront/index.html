@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="top">
+  <div class="logo">ShopFront</div>
+  <div class="links"><a href="#products">Products</a> <a href="#newsletter">Newsletter</a></div>
+  <input id="search" class="search" type="text" placeholder="Search">
+  <div class="cart">Cart: <span id="cart-count">0</span></div>
+</div>
+<div class="content">
+  <div class="hero"><img src="img/placeholder.svg" width="120" height="80"> Spring sale: up to 30% off office supplies</div>
+  <div class="h2">Products</div>
+  <div id="status">Loading products...</div>
+  <div id="products" class="grid"></div>
+  <div class="promo">
+    <label for="promo">Promo code</label>
+    <input id="promo" type="text" onkeydown="if (event.key === 'Tab') { event.preventDefault(); }">
+  </div>
+  <div id="newsletter">
+    <div class="h2">Newsletter</div>
+    <input id="email" type="text">
+    <button id="subscribe" type="button">Subscribe</button>
+    <div id="email-error" class="err"></div>
+    <div id="email-ok"></div>
+  </div>
+</div>
+<div class="foot">(c) ShopFront demo store</div>
+<script src="app.js"></script>
+</body>
+</html>

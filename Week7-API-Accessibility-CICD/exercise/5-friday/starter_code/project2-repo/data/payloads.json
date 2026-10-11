@@ -1,0 +1,15 @@
+{
+  "valid": [
+    {"id": "minimal", "body": {"price": 1, "category": "home"}},
+    {"id": "with-stock", "body": {"price": 12.5, "category": "office", "stock": 3}},
+    {"id": "free-item", "body": {"price": 0, "category": "electronics", "stock": 0}}
+  ],
+  "invalid": [
+    {"id": "no-name", "body": {"price": 1, "category": "home"}, "drop_name": true, "bad_field": "name"},
+    {"id": "blank-name", "body": {"name": "   ", "price": 1, "category": "home"}, "bad_field": "name"},
+    {"id": "negative-price", "body": {"name": "x", "price": -1, "category": "home"}, "bad_field": "price"},
+    {"id": "string-price", "body": {"name": "x", "price": "cheap", "category": "home"}, "bad_field": "price"},
+    {"id": "bad-category", "body": {"name": "x", "price": 1, "category": "toys"}, "bad_field": "category"},
+    {"id": "negative-stock", "body": {"name": "x", "price": 1, "category": "home", "stock": -5}, "bad_field": "stock"}
+  ]
+}

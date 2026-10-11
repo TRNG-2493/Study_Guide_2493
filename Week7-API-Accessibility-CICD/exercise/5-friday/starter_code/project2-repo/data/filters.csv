@@ -1,0 +1,5 @@
+case_id,category,min_expected_seed_count
+office,office,2
+home,home,1
+electronics,electronics,2
+unknown-category,toys,0

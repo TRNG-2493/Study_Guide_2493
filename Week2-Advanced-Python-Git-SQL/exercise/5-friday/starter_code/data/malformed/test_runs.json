@@ -1,0 +1,104 @@
+[
+ {
+  "run_id": 1,
+  "build_id": 1,
+  "case_id": 1,
+  "tester": "Lena",
+  "run_date": "2026-03-05",
+  "result": "PASSED",
+  "duration_sec": 44
+ },
+ {
+  "run_id": 2,
+  "build_id": 1,
+  "case_id": 2,
+  "tester": "Priya",
+  "run_date": "2026-03-04",
+  "result": "pass",
+  "duration_sec": -5
+ },
+ {
+  "run_id": 3,
+  "build_id": 1,
+  "case_id": 3,
+  "tester": "Priya",
+  "run_date": "2026-03-04",
+  "result": "pass",
+  "duration_sec": 86400
+ },
+ {
+  "run_id": 4,
+  "build_id": 1,
+  "case_id": 4,
+  "tester": "Lena",
+  "run_date": "2026-03-06",
+  "result": null,
+  "duration_sec": 606
+ },
+ {
+  "run_id": 5,
+  "build_id": 1,
+  "case_id": 5,
+  "tester": null,
+  "run_date": "2026-03-03",
+  "result": "pass",
+  "duration_sec": 452
+ },
+ {
+  "run_id": 6,
+  "build_id": 1,
+  "case_id": 6,
+  "tester": "  ",
+  "run_date": "2026-03-05",
+  "result": "pass",
+  "duration_sec": 476
+ },
+ {
+  "run_id": 7,
+  "build_id": 1,
+  "case_id": 7,
+  "tester": "Marco",
+  "run_date": "2026-03-05",
+  "result": "fail",
+  "duration_sec": 407
+ },
+ {
+  "run_id": 8,
+  "build_id": 1,
+  "case_id": 8,
+  "tester": "Priya",
+  "run_date": "2026-03-04",
+  "result": "pass",
+  "duration_sec": null
+ },
+ {
+  "run_id": 9,
+  "build_id": 2,
+  "case_id": 1,
+  "tester": "Lena",
+  "run_date": "2026-03-06",
+  "result": "pass",
+  "duration_sec": 45
+ },
+ {
+  "run_id": 10,
+  "build_id": 2,
+  "case_id": 2,
+  "tester": "Sam",
+  "run_date": "2026-03-09",
+  "result": "pass",
+  "duration_sec": 124
+ },
+ {
+  "run_id": 11,
+  "build_id": 2,
+  "case_id": 4,
+  "tester": "Priya",
+  "run_date": "2026-03-11",
+  "result": "fail",
+  "duration_sec": 493
+ },
+ {
+  "run_id": 12,
+  "build_id": 2,
+  "case_id"

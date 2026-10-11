@@ -1,0 +1,6 @@
+stateDiagram-v2
+    [*] --> Pending : create account
+    Pending --> Active : verify
+    %% TODO add the other valid transitions: suspend, reactivate, close
+    %% Guards go in square brackets, for example: Active --> Suspended : suspend [reason given]
+    %% TODO Closed --> [*]

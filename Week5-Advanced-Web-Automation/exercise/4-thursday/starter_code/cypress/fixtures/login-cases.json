@@ -1,0 +1,6 @@
+[
+  { "title": "empty username", "username": "", "password": "secret_sauce", "expectedError": "Username is required" },
+  { "title": "empty password", "username": "standard_user", "password": "", "expectedError": "Password is required" },
+  { "title": "wrong password", "username": "standard_user", "password": "nope", "expectedError": "do not match any user" },
+  { "title": "locked out user", "username": "locked_out_user", "password": "secret_sauce", "expectedError": "locked out" }
+]

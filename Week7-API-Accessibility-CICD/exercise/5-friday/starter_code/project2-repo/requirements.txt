@@ -1,0 +1,12 @@
+# Project 2 framework: API (Wed) + accessibility and MCP (Thu)
+requests>=2.31
+pytest>=8
+pytest-randomly>=3.15
+pytest-xdist>=3.5
+pytest-asyncio>=0.23
+jsonschema>=4.19
+pydantic>=2.5
+responses>=0.24
+playwright>=1.45          # Chromium is NOT installed by pip; CI uses the Playwright image
+axe-playwright-python>=0.1.4
+mcp<2                     # MCP SDK 1.x API only

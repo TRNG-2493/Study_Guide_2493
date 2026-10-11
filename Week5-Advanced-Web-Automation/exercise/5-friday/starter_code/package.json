@@ -1,0 +1,21 @@
+{
+  "name": "week5-friday-cypress-visual-exercise",
+  "version": "1.0.0",
+  "private": true,
+  "description": "5-friday exercise starter: Cypress screenshots/video, logging, recorder cleanup and visual regression against the local QE Shop app.",
+  "scripts": {
+    "start": "node server.js",
+    "start:diff": "DIFF=on node server.js",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "visual:base": "cypress run --spec cypress/e2e/visual.cy.js --env visualRegressionType=base --config video=false",
+    "visual:compare": "cypress run --spec cypress/e2e/visual.cy.js --config video=false",
+    "visual:diff": "cypress run --spec cypress/e2e/visual.cy.js --env appDiff=on --config video=false",
+    "check:threshold": "node tools/threshold-check.js",
+    "check": "node --check server.js && node --check cypress.config.js && node --check cypress/support/e2e.js && node --check cypress/support/commands.js && node --check cypress/e2e/smoke.cy.js && node --check cypress/e2e/checkout.cy.js && node --check cypress/e2e/logging.cy.js && node --check cypress/e2e/visual.cy.js && node --check cypress/recorded/raw-checkout.cy.js && node --check tools/threshold-check.js"
+  },
+  "devDependencies": {
+    "cypress": "^15.21.1",
+    "cypress-visual-regression": "5.3.0"
+  }
+}

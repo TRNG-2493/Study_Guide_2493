@@ -1,0 +1,20 @@
+body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #222; }
+.top { display: flex; gap: 16px; align-items: center; padding: 12px 24px; background: #eef2f7; }
+.logo { font-size: 24px; font-weight: bold; }
+.content { padding: 16px 24px; }
+.hero { background: #fff7e0; padding: 12px; margin-bottom: 16px; }
+.h2 { font-size: 20px; font-weight: bold; margin: 16px 0 8px; }
+.grid { display: flex; gap: 12px; flex-wrap: wrap; }
+.card { border: 1px solid #ccc; padding: 8px; width: 150px; }
+.name { font-weight: bold; margin-top: 6px; }
+.price { color: #595959; }
+.btn, #subscribe { background: #1a4f9c; color: #fff; padding: 6px 10px; border: 0; margin-top: 6px; display: inline-block; cursor: pointer; }
+.err { color: #c00000; margin-top: 6px; }
+.promo, #newsletter { margin-top: 20px; }
+.foot { padding: 12px 24px; background: #eef2f7; margin-top: 24px; }
+a:focus, input:focus, button:focus { outline: 3px solid #b35900; outline-offset: 2px; }
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 8px; top: 8px; background: #fff; padding: 6px; z-index: 5; }
+label { display: block; font-size: 14px; }
+h1 { font-size: 28px; margin: 0 0 12px; } h2 { font-size: 20px; margin: 16px 0 8px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

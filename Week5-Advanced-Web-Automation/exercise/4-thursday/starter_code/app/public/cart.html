@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>ShopLite - Cart</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<script src="/app.js"></script>
+<script>requireSession(); document.body.insertAdjacentHTML('afterbegin', header('Your Cart'));</script>
+<div id="list"></div>
+<a href="/inventory.html" data-test="continue-shopping">Continue shopping</a>
+<button data-test="checkout" onclick="location.href='/checkout.html'">Checkout</button>
+<script>
+fetch('/api/products').then((r) => r.json()).then((products) => {
+  const cart = getCart();
+  document.getElementById('list').innerHTML = products.filter((p) => cart.includes(p.slug)).map((p) => `
+    <div class="item" data-test="cart-item"><span data-test="item-name">${p.name}</span><span data-test="item-price">$${p.price.toFixed(2)}</span></div>`).join('');
+});
+renderBadge();
+</script></body></html>

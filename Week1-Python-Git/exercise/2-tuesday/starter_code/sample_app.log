@@ -1,0 +1,16 @@
+# app.log sample - used by the log scanner exercise
+
+2026-03-02 09:15:01 | INFO | Server started on port 8080
+2026-03-02 09:15:03 | INFO | Error handler registered
+2026-03-02 09:15:07 | WARN | Slow response: /api/login took 2300 ms
+2026-03-02 09:15:12 | ERROR | Database connection refused
+
+2026-03-02 09:15:20 | INFO | Retrying database connection (1/3)
+2026-03-02 09:15:25 | ERROR | Database connection refused
+2026-03-02 09:15:31 | WARN | Cache miss ratio above 40%
+this line is garbage
+# maintenance window starts
+2026-03-02 09:16:00 | INFO | Database connection restored
+2026-03-02 09:16:10 | ERROR | Payment gateway timeout
+END
+2026-03-02 09:16:20 | ERROR | Should never be counted

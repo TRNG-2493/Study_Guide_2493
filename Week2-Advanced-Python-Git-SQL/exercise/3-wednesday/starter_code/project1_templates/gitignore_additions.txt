@@ -1,0 +1,5 @@
+# Add these lines to the .gitignore in qe-foundations (Part E)
+*.log
+__pycache__/
+.venv/
+out/

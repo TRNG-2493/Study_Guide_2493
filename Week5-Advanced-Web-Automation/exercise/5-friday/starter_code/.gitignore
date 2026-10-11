@@ -1,0 +1,9 @@
+node_modules/
+# Evidence produced by every run: do not commit
+cypress/snapshots/actual/
+cypress/snapshots/diff/
+cypress/screenshots/
+cypress/videos/
+cypress/logs/
+cypress.env.json
+# NOTE: cypress/snapshots/base/ (the approved baselines) IS committed.

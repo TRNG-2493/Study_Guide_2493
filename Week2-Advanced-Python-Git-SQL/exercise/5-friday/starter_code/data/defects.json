@@ -1,0 +1,122 @@
+[
+ {
+  "defect_id": 3,
+  "run_id": 12,
+  "case_id": 7,
+  "title": "Defect from run 12: Checkout with card",
+  "severity": null,
+  "status": "open",
+  "opened_date": "2026-03-12",
+  "closed_date": null
+ },
+ {
+  "defect_id": 4,
+  "run_id": 13,
+  "case_id": 8,
+  "title": "Defect from run 13: Checkout with expired card",
+  "severity": "urgent",
+  "status": "open",
+  "opened_date": "2026-03-14",
+  "closed_date": null
+ },
+ {
+  "defect_id": 5,
+  "run_id": 15,
+  "case_id": 1,
+  "title": "Defect from run 15: Search with no results",
+  "severity": "low",
+  "status": "fixed",
+  "opened_date": "2026-03-12",
+  "closed_date": "2026-03-15"
+ },
+ {
+  "defect_id": 6,
+  "run_id": 21,
+  "case_id": 6,
+  "title": "Defect from run 21: Apply discount code",
+  "severity": "medium",
+  "status": "closed",
+  "opened_date": "2026-03-19",
+  "closed_date": "2026-03-15"
+ },
+ {
+  "defect_id": 7,
+  "run_id": 22,
+  "case_id": 7,
+  "title": "Defect from run 22: Checkout with card",
+  "severity": "low",
+  "status": "fixed",
+  "opened_date": "2026-03-16",
+  "closed_date": null
+ },
+ {
+  "defect_id": 8,
+  "run_id": 23,
+  "case_id": 9,
+  "title": "Defect from run 23: Search by keyword",
+  "severity": "critical",
+  "status": "open",
+  "opened_date": "2026-03-19",
+  "closed_date": "2026-03-22"
+ },
+ {
+  "defect_id": 9,
+  "run_id": 24,
+  "case_id": 11,
+  "title": "Defect from run 24: Edit profile name",
+  "severity": "medium",
+  "status": "open",
+  "opened_date": "2026-03-16",
+  "closed_date": null
+ },
+ {
+  "defect_id": 10,
+  "run_id": 29,
+  "case_id": 8,
+  "title": "Defect from run 29: Checkout with expired card",
+  "severity": "critical",
+  "status": "closed",
+  "opened_date": "2026-04-10",
+  "closed_date": "2026-04-19"
+ },
+ {
+  "defect_id": 12,
+  "run_id": 38,
+  "case_id": 10,
+  "title": "Defect from run 38: Search with no results",
+  "severity": "low",
+  "status": "closed",
+  "opened_date": "2026-04-15",
+  "closed_date": "2026-04-19"
+ },
+ {
+  "defect_id": 13,
+  "run_id": 19,
+  "case_id": 4,
+  "title": "Defect logged against a passing run",
+  "severity": "medium",
+  "status": "open",
+  "opened_date": "2026-03-19",
+  "closed_date": null
+ },
+ {
+  "defect_id": 14,
+  "run_id": 500,
+  "case_id": 4,
+  "title": "Defect pointing at a deleted run",
+  "severity": "high",
+  "status": "open",
+  "opened_date": "2026-04-15",
+  "closed_date": null
+ },
+ {
+  "defect_id": 15,
+  "run_id": null,
+  "case_id": 77,
+  "title": "Exploratory defect for unknown case",
+  "severity": "low",
+  "status": "open",
+  "opened_date": "2026-04-16",
+  "closed_date": null
+ }
+]

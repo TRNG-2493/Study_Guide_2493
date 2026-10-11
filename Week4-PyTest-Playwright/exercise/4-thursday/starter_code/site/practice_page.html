@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--
+  practice_page.html  --  OFFLINE STAND-IN for https://www.saucedemo.com
+  Thursday demo (Web Locators & Playwright Introduction).
+
+  WHY THIS FILE EXISTS
+  - The live practice site can be blocked by a school/corporate network, be down, or change its markup.
+  - This page copies the *selectors-relevant* markup of SauceDemo (same ids, classes, data-test
+    attributes, same 6 products) so every locator in the demo works on BOTH. Run the demo with
+        DEMO_SITE=local   (this file)     or     DEMO_SITE=live   (the real website, default)
+  - It is a single page: JavaScript swaps the login form for the product list (the list is not in the DOM until login). A flag in
+    localStorage remembers "logged in", which lets us demonstrate BrowserContext isolation.
+  It is NOT a real app: any username with the password "secret_sauce" logs in.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Swag Labs (offline practice copy)</title>
+</head>
+<body>
+  <!-- ===== LOGIN SECTION (mirrors saucedemo.com/) ===== -->
+  <div id="login_section">
+    <div class="login_logo">Swag Labs</div>
+    <form id="login-form">
+      <input class="input_error form_input" data-test="username" id="user-name" name="user-name"
+             placeholder="Username" type="text" autocapitalize="none">
+      <input class="input_error form_input" data-test="password" id="password" name="password"
+             placeholder="Password" type="password">
+      <div class="error-message-container"></div>
+      <input class="submit-button btn_action" data-test="login-button" id="login-button"
+             name="login-button" type="submit" value="Login">
+    </form>
+  </div>
+
+  <!-- ===== INVENTORY SECTION (mirrors saucedemo.com/inventory.html) ===== -->
+  <template id="inventory_tpl"><div id="inventory_section">
+    <div class="header_secondary_container"><span class="title" data-test="title">Products</span></div>
+    <a class="shopping_cart_link" data-test="shopping-cart-link" href="#">Cart</a>
+    <div class="inventory_list" data-test="inventory-list">
+
+      <div class="inventory_item" data-test="inventory-item">
+        <div class="inventory_item_img"></div>
+        <div class="inventory_item_description">
+          <div class="inventory_item_label">
+            <a href="#"><div class="inventory_item_name" data-test="inventory-item-name">Sauce Labs Backpack</div></a>
+            <div class="inventory_item_desc">carry.allTheThings() with the sleek, streamlined Sly Pack.</div>
+          </div>
+          <div class="pricebar">
+            <div class="inventory_item_price" data-test="inventory-item-price">$29.99</div>
+            <button class="btn btn_primary btn_small btn_inventory" data-test="add-to-cart-sauce-labs-backpack" id="add-to-cart-sauce-labs-backpack">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="inventory_item" data-test="inventory-item">
+        <div class="inventory_item_img"></div>
+        <div class="inventory_item_description">
+          <div class="inventory_item_label">
+            <a href="#"><div class="inventory_item_name" data-test="inventory-item-name">Sauce Labs Bike Light</div></a>
+            <div class="inventory_item_desc">A red light isn't the desired state in testing but it sure helps when riding your bike at night.</div>
+          </div>
+          <div class="pricebar">
+            <div class="inventory_item_price" data-test="inventory-item-price">$9.99</div>
+            <button class="btn btn_primary btn_small btn_inventory" data-test="add-to-cart-sauce-labs-bike-light" id="add-to-cart-sauce-labs-bike-light">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="inventory_item" data-test="inventory-item">
+        <div class="inventory_item_img"></div>
+        <div class="inventory_item_description">
+          <div class="inventory_item_label">
+            <a href="#"><div class="inventory_item_name" data-test="inventory-item-name">Sauce Labs Bolt T-Shirt</div></a>
+            <div class="inventory_item_desc">Get your testing superhero on with the Sauce Labs bolt T-shirt.</div>
+          </div>
+          <div class="pricebar">
+            <div class="inventory_item_price" data-test="inventory-item-price">$15.99</div>
+            <button class="btn btn_primary btn_small btn_inventory" data-test="add-to-cart-sauce-labs-bolt-t-shirt" id="add-to-cart-sauce-labs-bolt-t-shirt">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="inventory_item" data-test="inventory-item">
+        <div class="inventory_item_img"></div>
+        <div class="inventory_item_description">
+          <div class="inventory_item_label">
+            <a href="#"><div class="inventory_item_name" data-test="inventory-item-name">Sauce Labs Fleece Jacket</div></a>
+            <div class="inventory_item_desc">It's not every day that you come across a midweight quarter-zip fleece jacket.</div>
+          </div>
+          <div class="pricebar">
+            <div class="inventory_item_price" data-test="inventory-item-price">$49.99</div>
+            <button class="btn btn_primary btn_small btn_inventory" data-test="add-to-cart-sauce-labs-fleece-jacket" id="add-to-cart-sauce-labs-fleece-jacket">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="inventory_item" data-test="inventory-item">
+        <div class="inventory_item_img"></div>
+        <div class="inventory_item_description">
+          <div class="inventory_item_label">
+            <a href="#"><div class="inventory_item_name" data-test="inventory-item-name">Sauce Labs Onesie</div></a>
+            <div class="inventory_item_desc">Rib snap infant onesie for the junior automation engineer in development.</div>
+          </div>
+          <div class="pricebar">
+            <div class="inventory_item_price" data-test="inventory-item-price">$7.99</div>
+            <button class="btn btn_primary btn_small btn_inventory" data-test="add-to-cart-sauce-labs-onesie" id="add-to-cart-sauce-labs-onesie">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="inventory_item" data-test="inventory-item">
+        <div class="inventory_item_img"></div>
+        <div class="inventory_item_description">
+          <div class="inventory_item_label">
+            <a href="#"><div class="inventory_item_name" data-test="inventory-item-name">Test.allTheThings() T-Shirt (Red)</div></a>
+            <div class="inventory_item_desc">This classic Sauce Labs t-shirt is perfect to wear when cozying up to your keyboard to automate a few tests.</div>
+          </div>
+          <div class="pricebar">
+            <div class="inventory_item_price" data-test="inventory-item-price">$15.99</div>
+            <button class="btn btn_primary btn_small btn_inventory" data-test="add-to-cart-test.allthethings()-t-shirt-(red)" id="add-to-cart-test.allthethings()-t-shirt-(red)">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div></template>
+
+  <script>
+    // Tiny behaviour so the page "feels" like the real site. Not part of the lesson.
+    // Like the real site, the product list does NOT exist in the DOM until you are logged in:
+    // we swap the login section out and clone the product list in from the <template>.
+    function showInventory() {
+      document.getElementById('login_section').remove();
+      document.body.appendChild(document.getElementById('inventory_tpl').content.cloneNode(true));
+    }
+    try { if (window.localStorage.getItem('session-username')) { showInventory(); } } catch (e) {}
+    document.getElementById('login-form').addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var user = document.getElementById('user-name').value;
+      var pwd = document.getElementById('password').value;
+      var box = document.querySelector('.error-message-container');
+      if (user && pwd === 'secret_sauce') {
+        try { window.localStorage.setItem('session-username', user); } catch (e) {}
+        showInventory();
+      } else {
+        box.innerHTML = '<h3 data-test="error">Epic sadface: Username and password do not match any user in this service</h3>';
+      }
+    });
+  </script>
+</body>
+</html>

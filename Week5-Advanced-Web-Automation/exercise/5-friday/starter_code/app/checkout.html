@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QE Shop - Checkout</title><script src="/config.js"></script><link rel="stylesheet" href="/styles.css"></head>
+<body data-page="checkout"><div id="top"></div>
+<main><h1>Checkout</h1><div class="panel"><form onsubmit="return false">
+<label for="first-name">First name</label><input id="first-name" data-test="firstName">
+<label for="last-name">Last name</label><input id="last-name" data-test="lastName">
+<label for="postal-code">Postal code</label><input id="postal-code" data-test="postalCode">
+<div class="row" style="margin-top:14px"><strong data-test="subtotal-label"></strong></div>
+<div class="error" data-test="error" hidden></div>
+<div class="actions"><button class="btn btn-primary" data-test="finish" id="finish" type="submit">Finish</button></div></form></div></main>
+<script src="/app.js"></script></body></html>

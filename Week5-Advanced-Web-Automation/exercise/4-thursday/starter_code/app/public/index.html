@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>ShopLite - Login</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<h1>ShopLite</h1>
+<form id="login">
+  <input data-test="username" placeholder="Username" autocomplete="off">
+  <input data-test="password" type="password" placeholder="Password" autocomplete="off">
+  <button type="submit" data-test="login-button">Login</button>
+</form>
+<p id="err" class="error" data-test="error" hidden></p>
+<script>
+document.getElementById('login').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const username = document.querySelector('[data-test="username"]').value;
+  const password = document.querySelector('[data-test="password"]').value;
+  const r = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
+  const body = await r.json();
+  const err = document.getElementById('err');
+  if (r.ok) { location.href = '/inventory.html'; } else { err.textContent = 'Error: ' + body.error; err.hidden = false; }
+});
+</script></body></html>

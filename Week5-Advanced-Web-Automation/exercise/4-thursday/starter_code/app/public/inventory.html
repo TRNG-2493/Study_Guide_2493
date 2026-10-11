@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>ShopLite - Products</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<script src="/app.js"></script>
+<script>requireSession(); document.body.insertAdjacentHTML('afterbegin', header('Products'));</script>
+<label>Sort by
+  <select data-test="sort">
+    <option value="az">Name (A to Z)</option><option value="za">Name (Z to A)</option>
+    <option value="lohi">Price (low to high)</option><option value="hilo">Price (high to low)</option>
+  </select>
+</label>
+<div id="list" data-test="inventory-list"></div>
+<script>
+let products = [];
+function render() {
+  const mode = document.querySelector('[data-test="sort"]').value;
+  const sorted = [...products].sort({
+    az: (a, b) => a.name.localeCompare(b.name), za: (a, b) => b.name.localeCompare(a.name),
+    lohi: (a, b) => a.price - b.price, hilo: (a, b) => b.price - a.price }[mode]);
+  const cart = getCart();
+  document.getElementById('list').innerHTML = sorted.map((p) => `
+    <div class="item" data-test="inventory-item">
+      <span data-test="item-name">${p.name}</span>
+      <span data-test="item-price">$${p.price.toFixed(2)}</span>
+      ${cart.includes(p.slug)
+        ? `<button data-test="remove-${p.slug}" onclick="toggle('${p.slug}')">Remove</button>`
+        : `<button data-test="add-to-cart-${p.slug}" onclick="toggle('${p.slug}')">Add to cart</button>`}
+    </div>`).join('');
+}
+function toggle(slug) { const c = getCart(); setCart(c.includes(slug) ? c.filter((s) => s !== slug) : [...c, slug]); render(); }
+document.querySelector('[data-test="sort"]').addEventListener('change', render);
+renderBadge();
+fetch('/api/products').then((r) => r.json()).then((p) => { products = p; render(); });
+</script></body></html>

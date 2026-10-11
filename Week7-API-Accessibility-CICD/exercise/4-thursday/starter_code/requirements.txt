@@ -1,0 +1,8 @@
+# Thursday: accessibility + MCP (adds to the Wednesday framework requirements)
+requests>=2.31
+pytest>=8
+pytest-asyncio>=0.23
+playwright>=1.45          # Chromium is pre-installed in the lab image; do NOT run `playwright install`
+axe-playwright-python>=0.1.4
+jsonschema>=4.0
+mcp<2                     # MCP SDK 1.x API only (see the written lesson on SDK versions)

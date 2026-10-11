@@ -1,0 +1,22 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>ShopLite - Checkout</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<script src="/app.js"></script>
+<script>requireSession(); document.body.insertAdjacentHTML('afterbegin', header('Checkout'));</script>
+<form id="info">
+  <input data-test="firstName" placeholder="First Name"><input data-test="lastName" placeholder="Last Name"><input data-test="postalCode" placeholder="Postal Code">
+  <button type="submit" data-test="finish">Finish</button>
+</form>
+<p class="error" data-test="error" id="err" hidden></p>
+<h2 data-test="complete-header" id="done" hidden>Thank you for your order!</h2>
+<script>
+document.getElementById('info').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const ok = ['firstName', 'lastName', 'postalCode'].every((n) => document.querySelector(`[data-test="${n}"]`).value.trim());
+  const err = document.getElementById('err');
+  if (!ok) { err.textContent = 'Error: First Name, Last Name and Postal Code are required'; err.hidden = false; return; }
+  setCart([]); err.hidden = true;
+  document.getElementById('info').hidden = true; document.getElementById('done').hidden = false;
+  history.pushState({}, '', '/checkout-complete.html');
+});
+renderBadge();
+</script></body></html>

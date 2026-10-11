@@ -1,0 +1,25 @@
+flowchart LR
+    subgraph SDLC["SDLC lane (the team builds)"]
+        direction LR
+        S1["1. Planning: TODO"] --> S2["2. Requirements Analysis: TODO"]
+        S2 --> S3["3. Design: TODO"]
+        S3 --> S4["4. Implementation: TODO"]
+        S4 --> S5["5. Testing: TODO"]
+        S5 --> S6["6. Deployment: TODO"]
+        S6 --> S7["7. Maintenance: TODO"]
+    end
+
+    subgraph STLC["STLC lane (the QE tests)"]
+        direction LR
+        T1["1. Requirement Analysis: TODO"] --> T2["2. Test Planning: TODO"]
+        T2 --> T3["3. Test Case Development: TODO"]
+        T3 --> T4["4. Test Environment Setup: TODO"]
+        T4 --> T5["5. Test Execution: TODO"]
+        T5 --> T6["6. Test Cycle Closure: TODO"]
+    end
+
+    %% TODO: connect each STLC phase to the SDLC phase it lines up with (6 or more links).
+    %% Example link style: dotted line from STLC box to SDLC box.
+    S2 -.- T1
+    S3 -.- T2
+    %% TODO: add links for T3, T4, T5, T6

@@ -1,0 +1,15 @@
+case_id,title,module,priority,status,created_date
+1,Login with valid credentials,login,P1,active,2025-11-03
+2,Login lockout after 5 failures,login,P1,active,2025-11-03
+3,Password reset email sent,login,P2,active,2025-11-10
+4,Add item to cart,cart,P1,active,2025-11-17
+5,Remove item from cart,cart,P2,active,2025-11-17
+6,Apply discount code,cart,P2,active,2025-11-24
+7,Checkout with card,checkout,P1,active,2025-12-01
+8,Checkout with expired card,checkout,P1,active,2025-12-01
+9,Search by keyword,search,P2,active,2025-12-08
+10,Search with no results,search,P3,active,2025-12-08
+11,Edit profile name,profile,P3,active,2025-12-15
+12,Legacy guest checkout,checkout,P3,retired,2025-10-01
+13,Wishlist add item,profile,P3,active,2026-02-02
+14,Export order history,profile,P3,active,2026-02-02

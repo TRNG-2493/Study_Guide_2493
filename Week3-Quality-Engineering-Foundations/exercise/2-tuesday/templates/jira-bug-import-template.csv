@@ -1,0 +1,5 @@
+Summary,Issue Type,Priority,Severity,Labels,Environment,Description
+"EXAMPLE ONLY: Login page heading shows 'Wellcome' instead of 'Welcome' (delete this row)",Bug,Low,Low,week3-tuesday,"Windows 11, Python 3.12, build 0.5.0","Requirement: example only
+Steps: 1. Open the login page 2. Read the heading
+Expected: Welcome
+Actual: Wellcome"

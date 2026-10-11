@@ -1,0 +1,5 @@
+# Install:  pip install -r requirements.txt
+# Then:     playwright install chromium
+pytest>=8.0
+playwright>=1.40
+pytest-html>=4.0

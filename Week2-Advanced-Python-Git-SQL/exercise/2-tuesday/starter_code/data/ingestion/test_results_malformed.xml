@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ApiTests" tests="2">
+  <testcase id="TC-1201" status="pass">
+    <title>GET /users returns 200</title>
+    <duration>0.4</duration>
+  </testcase>
+  <testcase id="TC-1202" status="fail">
+    <title>POST /users rejects empty body</title>
+    <duration>0.7
+  </testcase>
+</testsuite>

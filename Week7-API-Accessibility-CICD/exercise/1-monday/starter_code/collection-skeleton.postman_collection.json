@@ -1,0 +1,24 @@
+{
+  "info": {
+    "name": "Project 2 API - skeleton",
+    "description": "Starter skeleton. Fill in the folders; add requests, variables and tests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "description": "TODO: Health check, login as tester (save token), login as admin (save adminToken).",
+      "item": []
+    },
+    {
+      "name": "Items",
+      "description": "TODO: create (save itemId), get by id, list with query params, PUT, PATCH, DELETE (admin), get-after-delete.",
+      "item": []
+    },
+    {
+      "name": "Negative",
+      "description": "TODO: one request per error code: 400, 401, 403, 404, 409, 422. Each must assert the expected status AND an error body.",
+      "item": []
+    }
+  ]
+}

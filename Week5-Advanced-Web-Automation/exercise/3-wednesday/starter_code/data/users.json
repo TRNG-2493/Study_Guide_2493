@@ -1,0 +1,9 @@
+{
+  "valid_users": [
+    { "username": "standard_user", "password": "secret_sauce" }
+  ],
+  "invalid_logins": [
+    { "id": "locked-out-user", "username": "locked_out_user", "password": "secret_sauce",
+      "expected_error": "Epic sadface: Sorry, this user has been locked out." }
+  ]
+}

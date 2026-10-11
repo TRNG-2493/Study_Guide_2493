@@ -1,0 +1,4 @@
+﻿id,title,status,duration
+TC-301,Valid login,pass,1.2
+TC-302,Wrong password,fail,0.8
+TC-303,Logout,pass,0.5

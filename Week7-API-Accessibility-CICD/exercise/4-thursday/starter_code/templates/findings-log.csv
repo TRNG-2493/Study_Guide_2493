@@ -1,0 +1,2 @@
+id,pass,page_state,element_or_selector,what_happened,at_and_browser,wcag_sc_guess,axe_flagged,notes
+F-001,keyboard,loaded,#search,"Example: pressed Tab from the address bar; no visible focus ring on the search box",Keyboard only / Chromium,2.4.7,not-run-yet,"Replace this example row with your own findings"

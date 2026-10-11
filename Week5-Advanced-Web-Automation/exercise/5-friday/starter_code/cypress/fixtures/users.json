@@ -1,0 +1,4 @@
+{
+  "standard": { "username": "standard_user" },
+  "customer": { "firstName": "Ada", "lastName": "Lovelace", "postalCode": "12345" }
+}

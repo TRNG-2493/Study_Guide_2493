@@ -1,0 +1,18 @@
+{
+  "name": "week5-thursday-pair-exercise",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pair exercise: port 3 Playwright (Python) tests to Cypress and compare the tools.",
+  "scripts": {
+    "app": "node app/server.js",
+    "cy:open": "cypress open --e2e",
+    "cy:run": "cypress run",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:info": "cypress info",
+    "cy:verify": "cypress verify",
+    "pw": "cd playwright && python -m pytest -v"
+  },
+  "devDependencies": {
+    "cypress": "13.17.0"
+  }
+}

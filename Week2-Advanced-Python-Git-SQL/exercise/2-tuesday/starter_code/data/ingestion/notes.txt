@@ -1,0 +1,1 @@
+Free-text notes from a colleague. Not a test-data file; the loader must refuse it politely.

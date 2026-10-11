@@ -1,0 +1,11 @@
+id,title,status,duration
+TC-101,Login with valid credentials,pass,1.2
+TC-102,Login with wrong password,fail,0.8
+TC-103,,pass,0.5
+TC-104,"Search, exact match",passed,2.1
+TC-101,Duplicate of the first row,pass,0.9
+TC-106,"Checkout ""express"" flow",PASS,3.4
+TC-107,Profile update,fail,-4
+TC-108,Export report,blocked,n/a
+TC-109,Password reset,pass
+,Row with no id,pass,1.0

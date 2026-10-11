@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QE Summit Registration</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 760px; margin: 24px auto; padding: 0 16px; color: #1b1b1b; }
+    fieldset { margin: 14px 0; border: 1px solid #bbb; }
+    label { display: inline-block; margin-right: 12px; }
+    .row { margin: 10px 0; }
+    .error { color: #b00020; }
+    .ok { color: #0a6b2d; }
+    button:disabled { opacity: .5; }
+    /* hover element */
+    .info { position: relative; display: inline-block; }
+    .info .badge { display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center;
+                   border-radius: 50%; background: #06c; color: #fff; cursor: help; }
+    .info .tooltip { display: none; position: absolute; left: 28px; top: -4px; width: 240px; padding: 6px 8px;
+                     background: #222; color: #fff; border-radius: 4px; font-size: 13px; z-index: 5; }
+    .info:hover .tooltip { display: block; }
+    /* custom dropdown */
+    .dd { position: relative; display: inline-block; }
+    .dd [role=combobox] { border: 1px solid #888; padding: 4px 8px; width: 200px; cursor: pointer; background: #fff; }
+    .dd [role=listbox] { list-style: none; margin: 0; padding: 0; position: absolute; width: 214px; border: 1px solid #888; background: #fff; z-index: 4; }
+    .dd [role=listbox][hidden] { display: none; }
+    .dd [role=option] { padding: 4px 8px; cursor: pointer; }
+    .dd [role=option]:hover { background: #e8f0fe; }
+    /* autosuggest */
+    .suggest { position: relative; display: inline-block; }
+    .suggest ul { list-style: none; margin: 0; padding: 0; position: absolute; width: 100%; border: 1px solid #888; background: #fff; z-index: 3; }
+    .suggest ul[hidden] { display: none; }
+    .suggest li { padding: 4px 8px; cursor: pointer; }
+    .suggest li[aria-selected=true] { background: #cfe3ff; }
+    /* drag slider */
+    #donation-track { position: relative; width: 300px; height: 10px; background: #ccc; margin: 22px 12px 8px; }
+    #donation-handle { position: absolute; left: -10px; top: -8px; width: 20px; height: 26px; background: #06c; cursor: grab; }
+    #receipt { border: 2px solid #0a6b2d; padding: 8px 14px; margin-top: 16px; }
+    #receipt dt { font-weight: 600; float: left; clear: left; width: 120px; }
+    #receipt dd { margin: 0 0 4px 130px; }
+  </style>
+</head>
+<body>
+  <h1>QE Summit 2026 - Registration</h1>
+  <p><button type="button" id="help-btn">Need help?</button></p>
+
+  <form id="reg" onsubmit="return false" novalidate>
+    <ul id="errors" class="error" role="alert"></ul>
+
+    <fieldset>
+      <legend>Attendee</legend>
+      <div class="row"><label for="full-name">Full name</label> <input id="full-name" autocomplete="off"></div>
+      <div class="row"><label for="email">Email</label> <input id="email" type="email" autocomplete="off"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Ticket type</legend>
+      <label><input type="radio" name="ticket" value="standard"> Standard</label>
+      <label><input type="radio" name="ticket" value="workshop"> Workshop</label>
+      <label><input type="radio" name="ticket" value="vip"> VIP</label>
+      <span class="info">
+        <span class="badge" id="price-info" aria-label="Ticket price info" tabindex="0">i</span>
+        <span class="tooltip" id="price-tooltip" role="tooltip">Standard $100 | Workshop $250 | VIP $500</span>
+      </span>
+    </fieldset>
+
+    <fieldset>
+      <legend>Add-ons</legend>
+      <label><input type="checkbox" name="addon" value="lunch"> Lunch (+$20)</label>
+      <label><input type="checkbox" name="addon" value="kit" disabled> Workshop kit (+$30)</label>
+      <label><input type="checkbox" name="addon" value="parking"> Parking (+$15)</label>
+      <label><input type="checkbox" name="addon" value="gala" disabled> Gala dinner (+$80)</label>
+      <p><small id="addon-hint">Workshop kit needs a Workshop or VIP ticket. Gala dinner is VIP only.</small></p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Preferences</legend>
+      <div class="row">
+        <label for="tshirt">T-shirt size</label>
+        <select id="tshirt">
+          <option value="" selected disabled>-- Choose a size --</option>
+          <option value="S">Small</option>
+          <option value="M">Medium</option>
+          <option value="L">Large</option>
+          <option value="XL">Extra Large</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="sessions">Sessions (hold Ctrl/Cmd for several)</label><br>
+        <select id="sessions" multiple size="4">
+          <option value="basics">Playwright Basics</option>
+          <option value="api">API Testing</option>
+          <option value="cicd">CI/CD for Testers</option>
+          <option value="ai">AI-assisted Testing</option>
+        </select>
+      </div>
+      <div class="row">
+        <span id="country-label">Country</span>
+        <div class="dd">
+          <div id="country" role="combobox" aria-labelledby="country-label" aria-label="Country" aria-haspopup="listbox"
+               aria-expanded="false" aria-controls="country-list" tabindex="0">Choose a country</div>
+          <ul id="country-list" role="listbox" aria-label="Country options" hidden>
+            <li role="option">India</li>
+            <li role="option">Canada</li>
+            <li role="option">Germany</li>
+            <li role="option">United States</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <label for="city">City</label>
+        <div class="suggest">
+          <input id="city" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="city-list" autocomplete="off">
+          <ul id="city-list" role="listbox" aria-label="City suggestions" hidden></ul>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Extras</legend>
+      <div class="row">
+        <label for="promo">Promo code (press Enter to apply)</label>
+        <input id="promo" autocomplete="off">
+        <span id="promo-msg" aria-live="polite"></span>
+      </div>
+      <div class="row">
+        <span id="donation-label">Scholarship donation ($0 - $100, drag the handle)</span>
+        <div id="donation-track">
+          <div id="donation-handle" role="slider" aria-labelledby="donation-label" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"></div>
+        </div>
+        Donation: $<span id="donation-value">0</span>
+      </div>
+      <div class="row">
+        <button type="button" id="dietary-btn">Add dietary request</button>
+        <span id="dietary-status">No dietary request</span>
+      </div>
+    </fieldset>
+
+    <p><strong>Total: <span id="total">$0.00</span></strong></p>
+
+    <label><input type="checkbox" id="terms"> I accept the terms and conditions</label>
+    <p>
+      <button type="button" id="reset-btn">Reset form</button>
+      <button type="button" id="register-btn" disabled>Register</button>
+    </p>
+    <p id="status" aria-live="polite"></p>
+  </form>
+
+  <dl id="receipt" hidden>
+    <dt>Reference</dt><dd id="r-ref"></dd>
+    <dt>Name</dt><dd id="r-name"></dd>
+    <dt>Ticket</dt><dd id="r-ticket"></dd>
+    <dt>Add-ons</dt><dd id="r-addons"></dd>
+    <dt>T-shirt</dt><dd id="r-tshirt"></dd>
+    <dt>Sessions</dt><dd id="r-sessions"></dd>
+    <dt>Country</dt><dd id="r-country"></dd>
+    <dt>City</dt><dd id="r-city"></dd>
+    <dt>Promo</dt><dd id="r-promo"></dd>
+    <dt>Donation</dt><dd id="r-donation"></dd>
+    <dt>Dietary</dt><dd id="r-dietary"></dd>
+    <dt>Total</dt><dd id="r-total"></dd>
+  </dl>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const TICKET_PRICE = { standard: 100, workshop: 250, vip: 500 };
+  const ADDON_PRICE = { lunch: 20, kit: 30, parking: 15, gala: 80 };
+  const PROMO = { QE2026: 0.20 };
+  const CITIES = ["Hamburg", "Halifax", "Helsinki", "Houston", "Hyderabad", "Delhi", "Denver",
+                  "Dallas", "Dublin", "Toronto", "Tokyo", "Berlin", "Bangalore", "Boston"];
+  const state = { promo: null, dietary: null, donation: 0, country: "" };
+
+  const ticket = () => document.querySelector('input[name=ticket]:checked')?.value ?? "";
+  const addons = () => [...document.querySelectorAll('input[name=addon]:checked')].map(x => x.value);
+  const money = (n) => "$" + n.toFixed(2);
+
+  function computeTotal() {
+    let subtotal = (TICKET_PRICE[ticket()] ?? 0) + addons().reduce((s, a) => s + ADDON_PRICE[a], 0);
+    if (state.promo) subtotal *= (1 - PROMO[state.promo]);
+    return subtotal + state.donation;
+  }
+  function refresh() { $("total").textContent = money(computeTotal()); }
+
+  /* ---- conditional enabling ---- */
+  function applyTicketRules() {
+    const t = ticket();
+    const kit = document.querySelector('input[value=kit]'), gala = document.querySelector('input[value=gala]');
+    kit.disabled = !(t === "workshop" || t === "vip");
+    gala.disabled = t !== "vip";
+    if (kit.disabled) kit.checked = false;
+    if (gala.disabled) gala.checked = false;
+  }
+  document.querySelectorAll('input[name=ticket]').forEach(r => r.addEventListener("change", () => { applyTicketRules(); refresh(); }));
+  document.querySelectorAll('input[name=addon]').forEach(c => c.addEventListener("change", refresh));
+  $("terms").addEventListener("change", e => $("register-btn").disabled = !e.target.checked);
+
+  /* ---- native dialogs ---- */
+  $("help-btn").addEventListener("click", () => alert("Call 1-800-QE-HELP, we answer 9 to 5."));
+  $("dietary-btn").addEventListener("click", () => {
+    const answer = prompt("Describe your dietary requirement:");
+    if (answer === null) { state.dietary = null; $("dietary-status").textContent = "Dietary request cancelled"; }
+    else if (answer.trim() === "") { state.dietary = null; $("dietary-status").textContent = "No dietary request"; }
+    else { state.dietary = answer.trim(); $("dietary-status").textContent = "Dietary request: " + state.dietary; }
+  });
+  function clearForm() {
+    $("reg").reset();
+    applyTicketRules();
+    state.promo = null; state.dietary = null; state.donation = 0; state.country = "";
+    $("promo-msg").textContent = ""; $("promo-msg").className = "";
+    $("country").textContent = "Choose a country";
+    $("city").value = ""; $("city-list").hidden = true;
+    setDonation(0);
+    $("dietary-status").textContent = "No dietary request";
+    $("register-btn").disabled = true;
+    $("errors").innerHTML = ""; $("receipt").hidden = true;
+    refresh();
+  }
+  $("reset-btn").addEventListener("click", () => {
+    if (confirm("Reset the whole form? All entries will be lost.")) { clearForm(); $("status").textContent = "Form cleared"; }
+    else { $("status").textContent = "Reset cancelled"; }
+  });
+
+  /* ---- custom dropdown (NOT a <select>) ---- */
+  const country = $("country"), countryList = $("country-list");
+  country.addEventListener("click", () => {
+    countryList.hidden = !countryList.hidden;
+    country.setAttribute("aria-expanded", String(!countryList.hidden));
+  });
+  countryList.querySelectorAll('[role=option]').forEach(li => li.addEventListener("click", () => {
+    state.country = li.textContent; country.textContent = li.textContent;
+    countryList.hidden = true; country.setAttribute("aria-expanded", "false");
+  }));
+
+  /* ---- keyboard-driven promo code ---- */
+  $("promo").addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const code = $("promo").value.trim().toUpperCase();
+      if (PROMO[code]) { state.promo = code; $("promo-msg").textContent = "Promo " + code + " applied: 20% off"; $("promo-msg").className = "ok"; }
+      else { state.promo = null; $("promo-msg").textContent = "Invalid promo code"; $("promo-msg").className = "error"; }
+      refresh();
+    }
+    if (e.key === "Escape") {
+      $("promo").value = ""; state.promo = null; $("promo-msg").textContent = ""; refresh();
+    }
+  });
+
+  /* ---- drag slider (mouse down + move + up) ---- */
+  const track = $("donation-track"), handle = $("donation-handle");
+  let dragging = false;
+  function setDonation(v) {
+    v = Math.max(0, Math.min(100, v));
+    state.donation = v; $("donation-value").textContent = v;
+    handle.setAttribute("aria-valuenow", String(v));
+    handle.style.left = (v * track.offsetWidth / 100 - 10) + "px";
+    refresh();
+  }
+  handle.addEventListener("mousedown", e => { dragging = true; e.preventDefault(); });
+  window.addEventListener("mouseup", () => dragging = false);
+  window.addEventListener("mousemove", e => {
+    if (!dragging) return;
+    const r = track.getBoundingClientRect();
+    const x = Math.max(0, Math.min(e.clientX - r.left, r.width));
+    setDonation(Math.round((100 * x / r.width) / 5) * 5);   // steps of 5
+  });
+  handle.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight" || e.key === "ArrowUp") { setDonation(state.donation + 5); e.preventDefault(); }
+    if (e.key === "ArrowLeft" || e.key === "ArrowDown") { setDonation(state.donation - 5); e.preventDefault(); }
+    if (e.key === "Home") setDonation(0);
+    if (e.key === "End") setDonation(100);
+  });
+
+  /* ---- autosuggest (keyup-driven, 250 ms debounce, min 2 chars, list rebuilt each lookup) ---- */
+  const city = $("city"), cityList = $("city-list");
+  let timer = null, items = [], active = -1;
+  function closeList() { cityList.hidden = true; city.setAttribute("aria-expanded", "false"); }
+  function choose(text) { city.value = text; closeList(); }
+  function highlight(i) { active = i; [...cityList.children].forEach((li, k) => li.setAttribute("aria-selected", String(k === active))); }
+  function render() {
+    cityList.innerHTML = ""; active = -1;
+    items.forEach(text => {
+      const li = document.createElement("li");
+      li.setAttribute("role", "option"); li.setAttribute("aria-selected", "false"); li.textContent = text;
+      li.addEventListener("click", () => choose(text));
+      cityList.appendChild(li);
+    });
+    if (!items.length) { const li = document.createElement("li"); li.textContent = "No results"; cityList.appendChild(li); }
+    cityList.hidden = false; city.setAttribute("aria-expanded", "true");
+  }
+  city.addEventListener("keyup", e => {
+    if (["ArrowDown", "ArrowUp", "Enter", "Escape", "Tab"].includes(e.key)) return;
+    clearTimeout(timer);
+    const term = city.value.trim().toLowerCase();
+    if (term.length < 2) { closeList(); return; }
+    timer = setTimeout(() => { items = CITIES.filter(c => c.toLowerCase().startsWith(term)); render(); }, 250);
+  });
+  city.addEventListener("keydown", e => {
+    const n = items.length;
+    if (e.key === "ArrowDown" && !cityList.hidden && n) { highlight(Math.min(active + 1, n - 1)); e.preventDefault(); }
+    if (e.key === "ArrowUp" && !cityList.hidden && n) { highlight(Math.max(active - 1, 0)); e.preventDefault(); }
+    if (e.key === "Enter" && active >= 0) { choose(items[active]); e.preventDefault(); }
+    if (e.key === "Escape") closeList();
+  });
+
+  /* ---- register: validation, confirm(), alert(), receipt ---- */
+  $("register-btn").addEventListener("click", () => {
+    const errs = [];
+    const name = $("full-name").value.trim();
+    if (!name) errs.push("Full name is required");
+    if (!$("email").value.includes("@")) errs.push("A valid email is required");
+    if (!ticket()) errs.push("Choose a ticket type");
+    $("errors").innerHTML = errs.map(m => "<li>" + m + "</li>").join("");
+    if (errs.length) { $("status").textContent = "Please fix the errors"; return; }
+
+    const total = money(computeTotal());
+    if (!confirm("Register " + name + " for " + total + "?")) { $("status").textContent = "Registration cancelled"; return; }
+
+    const sel = (id) => [...$(id).selectedOptions].map(o => o.value).join(",") || "none";
+    $("r-ref").textContent = "QE-1001";
+    $("r-name").textContent = name;
+    $("r-ticket").textContent = ticket();
+    $("r-addons").textContent = addons().join(",") || "none";
+    $("r-tshirt").textContent = $("tshirt").value || "none";
+    $("r-sessions").textContent = sel("sessions");
+    $("r-country").textContent = state.country || "none";
+    $("r-city").textContent = city.value || "none";
+    $("r-promo").textContent = state.promo || "none";
+    $("r-donation").textContent = money(state.donation);
+    $("r-dietary").textContent = state.dietary || "none";
+    $("r-total").textContent = total;
+    $("receipt").hidden = false;
+    $("status").textContent = "Registration confirmed";
+    alert("Registration confirmed! Reference QE-1001");
+  });
+  refresh();
+</script>
+</body>
+</html>
