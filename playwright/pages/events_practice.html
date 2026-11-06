@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice Store - Events</title>
+  <style>
+    section { margin-bottom: 16px; }
+    iframe { width: 420px; height: 230px; border: 1px solid #999; }
+    #hidden-avatar-input { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Practice Store</h1>
+
+  <!-- 1. Dialogs -->
+  <section id="dialogs">
+    <h2>Dialogs</h2>
+    <button id="alert-button">Show alert</button>
+    <button id="confirm-button">Delete account</button>
+    <button id="prompt-button">Enter coupon</button>
+    <p id="dialog-result">No dialog yet</p>
+  </section>
+
+  <!-- 2. Frames -->
+  <section id="frames">
+    <h2>Frames</h2>
+    <iframe src="frame_profile.html" title="Profile form"></iframe>
+  </section>
+
+  <!-- 3. Shadow DOM -->
+  <section id="shadow">
+    <h2>Shadow DOM</h2>
+    <user-card id="open-card" data-name="Asha Patel"></user-card>
+    <closed-card></closed-card>
+  </section>
+
+  <!-- 4. Navigation -->
+  <section id="navigation">
+    <h2>Navigation</h2>
+    <a href="help.html">Help page</a>
+    <button id="delayed-redirect">Go to help in 1 second</button>
+    <button id="log-button">Write to console</button>
+  </section>
+
+  <!-- 5. New tabs and pop-ups -->
+  <section id="windows">
+    <h2>Tabs and pop-ups</h2>
+    <a href="help.html" target="_blank">Open help in a new tab</a>
+    <button id="chat-button">Open chat window</button>
+  </section>
+
+  <!-- 6. File upload -->
+  <section id="upload">
+    <h2>Upload</h2>
+    <label for="resume">Resume</label>
+    <input id="resume" type="file">
+    <p id="resume-result">No file chosen</p>
+
+    <label for="photos">Photos</label>
+    <input id="photos" type="file" multiple>
+    <p id="photos-result">0 photos</p>
+
+    <button id="avatar-button">Choose avatar</button>
+    <input id="hidden-avatar-input" type="file" accept="image/*">
+    <p id="avatar-result">No avatar</p>
+  </section>
+
+  <!-- 7. File download -->
+  <section id="download">
+    <h2>Download</h2>
+    <a id="report-link" href="data:text/plain;charset=utf-8,Sales%20report%3A%20%2412%2C500" download="sales-report.txt">Download report</a>
+    <button id="csv-button">Export orders as CSV</button>
+  </section>
+
+  <script>
+    // 1. Dialogs
+    const result = document.querySelector("#dialog-result");
+    document.querySelector("#alert-button").addEventListener("click", () => {
+      alert("Your order has been placed!");
+      result.textContent = "Alert closed";
+    });
+    document.querySelector("#confirm-button").addEventListener("click", () => {
+      const ok = confirm("Are you sure you want to delete your account?");
+      result.textContent = ok ? "Account deleted" : "Deletion cancelled";
+    });
+    document.querySelector("#prompt-button").addEventListener("click", () => {
+      const code = prompt("Enter your coupon code:", "SAVE10");
+      result.textContent = code === null ? "No coupon entered" : "Coupon applied: " + code;
+    });
+
+    // 3. Shadow DOM: an OPEN shadow root and a CLOSED one
+    class UserCard extends HTMLElement {
+      connectedCallback() {
+        const root = this.attachShadow({ mode: "open" });
+        root.innerHTML = `
+          <style>p { color: #36c; }</style>
+          <p class="name">${this.dataset.name}</p>
+          <button>Follow</button>
+          <span class="status">Not following</span>`;
+        root.querySelector("button").addEventListener("click", () => {
+          root.querySelector(".status").textContent = "Following";
+        });
+      }
+    }
+    customElements.define("user-card", UserCard);
+
+    class ClosedCard extends HTMLElement {
+      connectedCallback() {
+        const root = this.attachShadow({ mode: "closed" });
+        root.innerHTML = `<p>Secret content</p>`;
+      }
+    }
+    customElements.define("closed-card", ClosedCard);
+
+    // 4. Navigation
+    document.querySelector("#delayed-redirect").addEventListener("click", () => {
+      setTimeout(() => { location.href = "help.html?from=redirect"; }, 1000);
+    });
+    document.querySelector("#log-button").addEventListener("click", () => {
+      console.log("Button clicked");
+      console.error("Something went wrong");
+    });
+
+    // 5. Pop-up window
+    document.querySelector("#chat-button").addEventListener("click", () => {
+      window.open("help.html?from=chat", "chat", "width=400,height=300");
+    });
+
+    // 6. Upload
+    document.querySelector("#resume").addEventListener("change", (e) => {
+      const f = e.target.files[0];
+      document.querySelector("#resume-result").textContent =
+        f ? `Uploaded: ${f.name} (${f.size} bytes)` : "No file chosen";
+    });
+    document.querySelector("#photos").addEventListener("change", (e) => {
+      const names = [...e.target.files].map((f) => f.name).join(", ");
+      document.querySelector("#photos-result").textContent =
+        `${e.target.files.length} photos` + (names ? ": " + names : "");
+    });
+    const avatarInput = document.querySelector("#hidden-avatar-input");
+    document.querySelector("#avatar-button").addEventListener("click", () => avatarInput.click());
+    avatarInput.addEventListener("change", (e) => {
+      document.querySelector("#avatar-result").textContent = "Avatar: " + e.target.files[0].name;
+    });
+
+    // 7. Download generated in the browser
+    document.querySelector("#csv-button").addEventListener("click", () => {
+      const csv = "order,customer,total\n2001,Asha,10.00\n2002,Ben,17.50\n";
+      const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "orders.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

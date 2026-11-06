@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Profile</title></head>
+<body>
+  <h2>Edit profile</h2>
+  <label for="name">Name</label>
+  <input id="name" type="text">
+  <button id="save">Save</button>
+  <p id="saved"></p>
+
+  <!-- A frame inside this frame -->
+  <iframe title="Newsletter" style="width: 360px; height: 90px;" srcdoc="
+    <label for='nl-email'>Newsletter email</label>
+    <input id='nl-email' type='email'>
+    <button onclick=&quot;document.querySelector('#nl-msg').textContent = 'Subscribed: ' + document.querySelector('#nl-email').value&quot;>Subscribe</button>
+    <p id='nl-msg'></p>
+  "></iframe>
+
+  <script>
+    document.querySelector("#save").addEventListener("click", () => {
+      document.querySelector("#saved").textContent =
+        "Saved: " + document.querySelector("#name").value;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice Store</title>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Practice Store logo" width="40" height="40">
+    <h1>Practice Store</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#products">Products</a>
+      <a href="#contact">Contact us</a>
+    </nav>
+    <span title="Free shipping on orders over $50">🚚</span>
+  </header>
+
+  <section id="login">
+    <h2>Sign in</h2>
+    <form>
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="you@example.com">
+
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="Enter password">
+
+      <label><input type="checkbox" id="remember"> Remember me</label>
+
+      <button type="submit">Sign in</button>
+      <a href="#forgot">Forgot password?</a>
+    </form>
+  </section>
+
+  <section id="products">
+    <h2>Products</h2>
+    <ul class="product-list">
+      <li class="product">
+        <h3>Backpack</h3>
+        <p class="price">$29.99</p>
+        <p class="stock">In stock</p>
+        <button>Add to cart</button>
+      </li>
+      <li class="product">
+        <h3>Bike Light</h3>
+        <p class="price">$9.99</p>
+        <p class="stock">Out of stock</p>
+        <button disabled>Add to cart</button>
+      </li>
+      <li class="product">
+        <h3>T-Shirt</h3>
+        <p class="price">$15.99</p>
+        <p class="stock">In stock</p>
+        <button>Add to cart</button>
+      </li>
+      <li class="product">
+        <h3>Jacket</h3>
+        <p class="price">$49.99</p>
+        <p class="stock">In stock</p>
+        <button>Add to cart</button>
+      </li>
+    </ul>
+    <button data-testid="checkout-button">Checkout</button>
+  </section>
+
+  <section id="orders">
+    <h2>Recent orders</h2>
+    <table>
+      <thead>
+        <tr><th>Order</th><th>Customer</th><th>Status</th><th>Total</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1001</td><td>Asha Patel</td><td>Shipped</td><td>$45.98</td></tr>
+        <tr><td>1002</td><td>Ben Carter</td><td>Pending</td><td>$9.99</td></tr>
+        <tr><td>1003</td><td>Chen Wei</td><td>Shipped</td><td>$79.98</td></tr>
+        <tr><td>1004</td><td>Diana Lopez</td><td>Cancelled</td><td>$15.99</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    <p>© 2026 Practice Store</p>
+    <a href="#privacy">Privacy policy</a>
+  </footer>
+</body>
+</html>

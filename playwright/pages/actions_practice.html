@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice Store - Actions</title>
+  <style>
+    .success { color: green; }
+    .error { color: red; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Practice Store</h1>
+
+  <!-- 1. Login: message appears after 1 second -->
+  <section id="login">
+    <h2>Log in</h2>
+    <label for="username">Username</label>
+    <input id="username" type="text">
+    <label for="password">Password</label>
+    <input id="password" type="password">
+    <button id="login-button">Log in</button>
+    <p id="login-message" role="status"></p>
+  </section>
+
+  <!-- 2. Search: press Enter to search -->
+  <section id="search">
+    <h2>Search</h2>
+    <input type="search" placeholder="Search products" aria-label="Search products">
+    <p id="search-result"></p>
+  </section>
+
+  <!-- 3. Counter: click to add items -->
+  <section id="cart">
+    <h2>Cart</h2>
+    <button>Add item</button>
+    <p id="cart-count">Items: 0</p>
+  </section>
+
+  <!-- 4. Terms: checkbox enables the button -->
+  <section id="terms">
+    <h2>Terms</h2>
+    <label><input type="checkbox" id="agree"> I agree to the terms</label>
+    <button id="continue" disabled>Continue</button>
+  </section>
+
+  <!-- 5. Load products: spinner for 2 seconds, then a list -->
+  <section id="products">
+    <h2>Products</h2>
+    <button>Load products</button>
+    <p id="spinner" class="hidden">Loading...</p>
+    <ul id="product-list"></ul>
+  </section>
+
+  <!-- 6. Order status: text changes after 2 seconds -->
+  <section id="order">
+    <h2>Order</h2>
+    <button>Process order</button>
+    <p id="order-status">Not started</p>
+  </section>
+
+  <!-- 7. Notification: appears, then disappears after 2 seconds -->
+  <section id="notify">
+    <h2>Notifications</h2>
+    <button>Show notification</button>
+    <div id="toast" class="hidden" role="alert">Saved successfully!</div>
+  </section>
+
+  <!-- 8. Slow report: takes 7 seconds -->
+  <section id="report">
+    <h2>Report</h2>
+    <button>Generate report</button>
+    <p id="report-result"></p>
+  </section>
+
+  <!-- 9. Help link -->
+  <footer>
+    <a href="https://playwright.dev/python" target="_blank" class="help-link">Help</a>
+  </footer>
+
+  <script>
+    // 1. Login
+    document.querySelector("#login-button").addEventListener("click", () => {
+      const user = document.querySelector("#username").value;
+      const pass = document.querySelector("#password").value;
+      const msg = document.querySelector("#login-message");
+      msg.textContent = "Checking...";
+      msg.className = "";
+      setTimeout(() => {
+        if (user === "student" && pass === "secret123") {
+          msg.textContent = "Welcome, student!";
+          msg.className = "success";
+          location.hash = "dashboard";
+        } else {
+          msg.textContent = "Invalid username or password";
+          msg.className = "error";
+        }
+      }, 1000);
+    });
+
+    // 2. Search
+    document.querySelector("#search input").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        document.querySelector("#search-result").textContent =
+          "Results for: " + e.target.value;
+      }
+    });
+
+    // 3. Counter
+    let items = 0;
+    document.querySelector("#cart button").addEventListener("click", () => {
+      items += 1;
+      document.querySelector("#cart-count").textContent = "Items: " + items;
+    });
+
+    // 4. Terms
+    document.querySelector("#agree").addEventListener("change", (e) => {
+      document.querySelector("#continue").disabled = !e.target.checked;
+    });
+
+    // 5. Load products
+    document.querySelector("#products button").addEventListener("click", () => {
+      const spinner = document.querySelector("#spinner");
+      const list = document.querySelector("#product-list");
+      list.innerHTML = "";
+      spinner.classList.remove("hidden");
+      setTimeout(() => {
+        spinner.classList.add("hidden");
+        ["Backpack", "Bike Light", "Jacket"].forEach((name) => {
+          const li = document.createElement("li");
+          li.textContent = name;
+          list.appendChild(li);
+        });
+      }, 2000);
+    });
+
+    // 6. Order status
+    document.querySelector("#order button").addEventListener("click", () => {
+      const status = document.querySelector("#order-status");
+      status.textContent = "Processing...";
+      setTimeout(() => { status.textContent = "Complete"; }, 2000);
+    });
+
+    // 7. Notification
+    document.querySelector("#notify button").addEventListener("click", () => {
+      const toast = document.querySelector("#toast");
+      toast.classList.remove("hidden");
+      setTimeout(() => toast.classList.add("hidden"), 2000);
+    });
+
+    // 8. Slow report
+    document.querySelector("#report button").addEventListener("click", () => {
+      setTimeout(() => {
+        document.querySelector("#report-result").textContent = "Report ready";
+      }, 7000);
+    });
+  </script>
+</body>
+</html>

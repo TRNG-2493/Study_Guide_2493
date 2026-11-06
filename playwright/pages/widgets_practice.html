@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice Store - Widgets</title>
+  <style>
+    table { border-collapse: collapse; margin: 8px 0; }
+    th, td { border: 1px solid #ccc; padding: 4px 8px; }
+    th button { background: none; border: none; font-weight: bold; cursor: pointer; }
+    .hidden { display: none !important; }
+    #calendar { border: 1px solid #999; padding: 8px; display: inline-block; }
+    #calendar td button { width: 32px; }
+    #calendar td button.selected { background: #36c; color: #fff; }
+  </style>
+</head>
+<body>
+  <h1>Practice Store</h1>
+
+  <!-- 1. Employees table: sortable, with row actions -->
+  <section id="employees-section">
+    <h2>Employees</h2>
+    <table id="employees" aria-label="Employees">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th><button id="sort-name">Name</button></th>
+          <th>Department</th>
+          <th><button id="sort-salary">Salary</button></th>
+          <th>Start date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p id="employee-count"></p>
+    <p id="employee-message"></p>
+  </section>
+
+  <!-- 2. Orders table: paginated, 5 per page -->
+  <section id="orders-section">
+    <h2>Orders</h2>
+    <table id="orders" aria-label="Orders">
+      <thead>
+        <tr><th>Order</th><th>Customer</th><th>Status</th><th>Total</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <nav aria-label="Orders pages">
+      <button id="prev-page">Previous</button>
+      <span id="page-info"></span>
+      <button id="next-page">Next</button>
+    </nav>
+  </section>
+
+  <!-- 3. Native date input -->
+  <section id="native-date">
+    <h2>Birthday</h2>
+    <label for="birthday">Birthday</label>
+    <input id="birthday" type="date">
+    <p id="birthday-summary">Birthday: none</p>
+  </section>
+
+  <!-- 4. Custom calendar date picker -->
+  <section id="delivery">
+    <h2>Delivery date</h2>
+    <label for="delivery-date">Delivery date</label>
+    <input id="delivery-date" type="text" readonly placeholder="Choose a date">
+    <div id="calendar" class="hidden" role="dialog" aria-label="Calendar">
+      <button id="prev-month" aria-label="Previous month">&lt;</button>
+      <span id="month-year"></span>
+      <button id="next-month" aria-label="Next month">&gt;</button>
+      <table>
+        <thead>
+          <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
+        </thead>
+        <tbody id="calendar-days"></tbody>
+      </table>
+    </div>
+    <p id="delivery-summary">Delivery: none</p>
+  </section>
+
+  <script>
+    // ---------- 1. Employees ----------
+    let employees = [
+      { id: 101, name: "Asha Patel",  dept: "Engineering", salary: 95000, start: "2021-03-15" },
+      { id: 102, name: "Ben Carter",  dept: "Sales",       salary: 62000, start: "2019-07-01" },
+      { id: 103, name: "Chen Wei",    dept: "Engineering", salary: 105000, start: "2018-11-20" },
+      { id: 104, name: "Diana Lopez", dept: "Marketing",   salary: 71000, start: "2022-01-10" },
+      { id: 105, name: "Ethan Brown", dept: "Sales",       salary: 58000, start: "2023-05-22" },
+      { id: 106, name: "Fatima Khan", dept: "HR",          salary: 67000, start: "2020-09-14" },
+    ];
+    const money = (n) => "$" + n.toLocaleString("en-US");
+
+    function renderEmployees() {
+      const body = document.querySelector("#employees tbody");
+      body.innerHTML = "";
+      employees.forEach((e) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML =
+          `<td>${e.id}</td><td>${e.name}</td><td>${e.dept}</td>` +
+          `<td>${money(e.salary)}</td><td>${e.start}</td>` +
+          `<td><button>Edit</button> <button>Delete</button></td>`;
+        const [editBtn, deleteBtn] = tr.querySelectorAll("button");
+        editBtn.addEventListener("click", () => {
+          document.querySelector("#employee-message").textContent = "Editing " + e.name;
+        });
+        deleteBtn.addEventListener("click", () => {
+          employees = employees.filter((x) => x.id !== e.id);
+          document.querySelector("#employee-message").textContent = "Deleted " + e.name;
+          renderEmployees();
+        });
+        body.appendChild(tr);
+      });
+      document.querySelector("#employee-count").textContent = employees.length + " employees";
+    }
+    let salaryAsc = true;
+    document.querySelector("#sort-salary").addEventListener("click", () => {
+      employees.sort((a, b) => salaryAsc ? a.salary - b.salary : b.salary - a.salary);
+      salaryAsc = !salaryAsc;
+      renderEmployees();
+    });
+    document.querySelector("#sort-name").addEventListener("click", () => {
+      employees.sort((a, b) => a.name.localeCompare(b.name));
+      renderEmployees();
+    });
+    renderEmployees();
+
+    // ---------- 2. Orders (paginated) ----------
+    const statuses = ["Shipped", "Pending", "Delivered", "Cancelled"];
+    const customers = ["Asha", "Ben", "Chen", "Diana", "Ethan", "Fatima"];
+    const orders = [];
+    for (let i = 0; i < 12; i++) {
+      orders.push({
+        id: 2001 + i,
+        customer: customers[i % customers.length],
+        status: statuses[i % statuses.length],
+        total: (10 + i * 7.5).toFixed(2),
+      });
+    }
+    const pageSize = 5;
+    let currentPage = 1;
+    const totalPages = Math.ceil(orders.length / pageSize);
+
+    function renderOrders() {
+      const body = document.querySelector("#orders tbody");
+      body.innerHTML = "";
+      orders.slice((currentPage - 1) * pageSize, currentPage * pageSize).forEach((o) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${o.id}</td><td>${o.customer}</td><td>${o.status}</td><td>$${o.total}</td>`;
+        body.appendChild(tr);
+      });
+      document.querySelector("#page-info").textContent = `Page ${currentPage} of ${totalPages}`;
+      document.querySelector("#prev-page").disabled = currentPage === 1;
+      document.querySelector("#next-page").disabled = currentPage === totalPages;
+    }
+    document.querySelector("#prev-page").addEventListener("click", () => { currentPage--; renderOrders(); });
+    document.querySelector("#next-page").addEventListener("click", () => {
+      // Simulate loading the next page from a server
+      setTimeout(() => { currentPage++; renderOrders(); }, 300);
+    });
+    renderOrders();
+
+    // ---------- 3. Native date ----------
+    document.querySelector("#birthday").addEventListener("change", (e) => {
+      document.querySelector("#birthday-summary").textContent = "Birthday: " + e.target.value;
+    });
+
+    // ---------- 4. Custom calendar ----------
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July",
+                        "August", "September", "October", "November", "December"];
+    const today = new Date();
+    let viewYear = today.getFullYear();
+    let viewMonth = today.getMonth();   // the calendar opens on the CURRENT month
+    let selected = null;
+    const input = document.querySelector("#delivery-date");
+    const calendar = document.querySelector("#calendar");
+    const pad = (n) => String(n).padStart(2, "0");
+
+    function renderCalendar() {
+      document.querySelector("#month-year").textContent = `${monthNames[viewMonth]} ${viewYear}`;
+      const body = document.querySelector("#calendar-days");
+      body.innerHTML = "";
+      const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+      const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+      let tr = document.createElement("tr");
+      for (let i = 0; i < firstDay; i++) tr.appendChild(document.createElement("td"));
+      for (let day = 1; day <= daysInMonth; day++) {
+        const td = document.createElement("td");
+        const btn = document.createElement("button");
+        btn.textContent = day;
+        const iso = `${viewYear}-${pad(viewMonth + 1)}-${pad(day)}`;
+        btn.setAttribute("aria-label", `${monthNames[viewMonth]} ${day}, ${viewYear}`);
+        if (selected === iso) btn.classList.add("selected");
+        btn.addEventListener("click", () => {
+          selected = iso;
+          input.value = `${pad(viewMonth + 1)}/${pad(day)}/${viewYear}`;   // MM/DD/YYYY
+          calendar.classList.add("hidden");
+          document.querySelector("#delivery-summary").textContent =
+            `Delivery: ${monthNames[viewMonth]} ${day}, ${viewYear}`;
+        });
+        td.appendChild(btn);
+        tr.appendChild(td);
+        if ((firstDay + day) % 7 === 0) { body.appendChild(tr); tr = document.createElement("tr"); }
+      }
+      if (tr.children.length) body.appendChild(tr);
+    }
+    input.addEventListener("click", () => { calendar.classList.remove("hidden"); renderCalendar(); });
+    document.querySelector("#prev-month").addEventListener("click", () => {
+      viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; } renderCalendar();
+    });
+    document.querySelector("#next-month").addEventListener("click", () => {
+      viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; } renderCalendar();
+    });
+  </script>
+</body>
+</html>

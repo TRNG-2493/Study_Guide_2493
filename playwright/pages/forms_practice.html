@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice Store - Forms</title>
+  <style>
+    .hidden { display: none; }
+    .menu { position: relative; display: inline-block; }
+    .menu-items { display: none; border: 1px solid #ccc; padding: 4px; }
+    .menu:hover .menu-items { display: block; }
+    .tooltip { display: none; background: #333; color: #fff; padding: 2px 6px; }
+    #help-icon:hover + .tooltip { display: inline; }
+    .box { width: 160px; min-height: 60px; border: 2px dashed #999; padding: 8px; margin: 4px; display: inline-block; vertical-align: top; }
+    #drag-item { width: 120px; padding: 6px; background: #ddeeff; border: 1px solid #36c; cursor: move; }
+    #suggestions li { cursor: pointer; }
+    #suggestions li.active { background: #ddeeff; }
+    #context-menu { border: 1px solid #ccc; padding: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Practice Store</h1>
+
+  <!-- 1. Radio buttons -->
+  <section id="shipping">
+    <h2>Shipping method</h2>
+    <label><input type="radio" name="shipping" value="standard" checked> Standard</label>
+    <label><input type="radio" name="shipping" value="express"> Express</label>
+    <label><input type="radio" name="shipping" value="overnight"> Overnight</label>
+    <label><input type="radio" name="shipping" value="pickup" disabled> Store pickup (unavailable)</label>
+    <p id="shipping-summary">Shipping: Standard</p>
+  </section>
+
+  <!-- 2. Checkboxes -->
+  <section id="interests">
+    <h2>Interests</h2>
+    <label><input type="checkbox" id="select-all"> Select all</label>
+    <label><input type="checkbox" class="interest" value="newsletter"> Newsletter</label>
+    <label><input type="checkbox" class="interest" value="sms"> SMS updates</label>
+    <label><input type="checkbox" class="interest" value="offers"> Special offers</label>
+    <p id="interests-summary">Selected: none</p>
+  </section>
+
+  <!-- 3. Dropdown -->
+  <section id="country-section">
+    <h2>Country</h2>
+    <label for="country">Country</label>
+    <select id="country">
+      <option value="">-- Choose a country --</option>
+      <option value="ca">Canada</option>
+      <option value="in">India</option>
+      <option value="uk">United Kingdom</option>
+      <option value="us">United States</option>
+    </select>
+    <p id="country-summary">Country: none</p>
+  </section>
+
+  <!-- 4. Multi-select -->
+  <section id="sizes-section">
+    <h2>Sizes</h2>
+    <label for="sizes">Sizes</label>
+    <select id="sizes" multiple size="5">
+      <option value="xs">XS</option>
+      <option value="s">S</option>
+      <option value="m">M</option>
+      <option value="l">L</option>
+      <option value="xl">XL</option>
+    </select>
+    <p id="sizes-summary">Sizes: none</p>
+  </section>
+
+  <!-- 5. Custom dropdown (not a <select>) -->
+  <section id="colour-section">
+    <h2>Colour</h2>
+    <button id="colour-button" aria-haspopup="listbox">Choose a colour</button>
+    <ul id="colour-list" role="listbox" aria-label="Colours" class="hidden">
+      <li role="option">Red</li>
+      <li role="option">Green</li>
+      <li role="option">Blue</li>
+    </ul>
+  </section>
+
+  <!-- 6. Keyboard -->
+  <section id="keyboard">
+    <h2>Keyboard</h2>
+    <label for="notes">Notes</label>
+    <textarea id="notes" rows="3"></textarea>
+    <label for="key-input">Press any key</label>
+    <input id="key-input" type="text">
+    <p id="last-key">Last key: none</p>
+    <label for="first-name">First name</label>
+    <input id="first-name" type="text">
+    <label for="last-name">Last name</label>
+    <input id="last-name" type="text">
+    <p id="shortcut-result"></p>
+  </section>
+
+  <!-- 7. Mouse -->
+  <section id="mouse">
+    <h2>Mouse</h2>
+
+    <div class="menu">
+      <button>Account</button>
+      <div class="menu-items">
+        <a href="#profile">Profile</a>
+        <a href="#logout">Log out</a>
+      </div>
+    </div>
+
+    <span id="help-icon" aria-label="Help">❓</span>
+    <span class="tooltip" role="tooltip">We ship worldwide</span>
+
+    <p id="editable" title="Double-click to edit">Double-click me</p>
+
+    <div id="right-click-area" class="box">Right-click here</div>
+    <ul id="context-menu" class="hidden" role="menu">
+      <li role="menuitem">Copy</li>
+      <li role="menuitem">Delete</li>
+    </ul>
+
+    <div id="drag-source" class="box">
+      <div id="drag-item" draggable="true">Drag me</div>
+    </div>
+    <div id="drop-zone" class="box">Drop here</div>
+    <p id="drop-result"></p>
+  </section>
+
+  <!-- 8. Auto-suggestions -->
+  <section id="city-section">
+    <h2>Delivery city</h2>
+    <label for="city">City</label>
+    <input id="city" type="text" autocomplete="off" placeholder="Start typing a city">
+    <ul id="suggestions" role="listbox" aria-label="Suggestions"></ul>
+    <p id="city-summary">City: none</p>
+  </section>
+
+  <script>
+    // 1. Radio buttons
+    document.querySelectorAll("input[name='shipping']").forEach((radio) => {
+      radio.addEventListener("change", () => {
+        const label = radio.parentElement.textContent.trim();
+        document.querySelector("#shipping-summary").textContent = "Shipping: " + label;
+      });
+    });
+
+    // 2. Checkboxes
+    const interests = document.querySelectorAll(".interest");
+    const selectAll = document.querySelector("#select-all");
+    function updateInterests() {
+      const chosen = [...interests].filter((c) => c.checked)
+        .map((c) => c.parentElement.textContent.trim());
+      document.querySelector("#interests-summary").textContent =
+        "Selected: " + (chosen.length ? chosen.join(", ") : "none");
+      selectAll.checked = chosen.length === interests.length;
+    }
+    interests.forEach((c) => c.addEventListener("change", updateInterests));
+    selectAll.addEventListener("change", () => {
+      interests.forEach((c) => (c.checked = selectAll.checked));
+      updateInterests();
+    });
+
+    // 3. Dropdown
+    document.querySelector("#country").addEventListener("change", (e) => {
+      const option = e.target.selectedOptions[0];
+      document.querySelector("#country-summary").textContent =
+        "Country: " + (e.target.value ? option.textContent : "none");
+    });
+
+    // 4. Multi-select
+    document.querySelector("#sizes").addEventListener("change", (e) => {
+      const chosen = [...e.target.selectedOptions].map((o) => o.textContent);
+      document.querySelector("#sizes-summary").textContent =
+        "Sizes: " + (chosen.length ? chosen.join(", ") : "none");
+    });
+
+    // 5. Custom dropdown
+    const colourButton = document.querySelector("#colour-button");
+    const colourList = document.querySelector("#colour-list");
+    colourButton.addEventListener("click", () => colourList.classList.toggle("hidden"));
+    colourList.querySelectorAll("li").forEach((li) => {
+      li.addEventListener("click", () => {
+        colourButton.textContent = "Colour: " + li.textContent;
+        colourList.classList.add("hidden");
+      });
+    });
+
+    // 6. Keyboard
+    document.querySelector("#key-input").addEventListener("keydown", (e) => {
+      document.querySelector("#last-key").textContent = "Last key: " + e.key;
+    });
+    document.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        document.querySelector("#shortcut-result").textContent = "Saved with keyboard shortcut";
+      }
+    });
+
+    // 7. Mouse
+    const editable = document.querySelector("#editable");
+    editable.addEventListener("dblclick", () => {
+      editable.textContent = "Edit mode";
+    });
+    document.querySelector("#right-click-area").addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      document.querySelector("#context-menu").classList.remove("hidden");
+    });
+    const dragItem = document.querySelector("#drag-item");
+    const dropZone = document.querySelector("#drop-zone");
+    dragItem.addEventListener("dragstart", (e) => e.dataTransfer.setData("text/plain", "item"));
+    dropZone.addEventListener("dragover", (e) => e.preventDefault());
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.appendChild(dragItem);
+      document.querySelector("#drop-result").textContent = "Dropped!";
+    });
+
+    // 8. Auto-suggestions (appear 300 ms after typing, need 2+ letters)
+    const cities = ["Atlanta", "Austin", "Boston", "Charlotte", "Chicago",
+                    "Dallas", "Denver", "Detroit", "San Diego", "San Francisco", "San Jose"];
+    const cityInput = document.querySelector("#city");
+    const suggestions = document.querySelector("#suggestions");
+    let timer;
+    let activeIndex = -1;
+    function chooseCity(name) {
+      cityInput.value = name;
+      suggestions.innerHTML = "";
+      document.querySelector("#city-summary").textContent = "City: " + name;
+    }
+    cityInput.addEventListener("input", () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const text = cityInput.value.trim().toLowerCase();
+        suggestions.innerHTML = "";
+        activeIndex = -1;
+        if (text.length < 2) return;
+        cities.filter((c) => c.toLowerCase().includes(text)).forEach((c) => {
+          const li = document.createElement("li");
+          li.setAttribute("role", "option");
+          li.textContent = c;
+          li.addEventListener("click", () => chooseCity(c));
+          suggestions.appendChild(li);
+        });
+      }, 300);
+    });
+    cityInput.addEventListener("keydown", (e) => {
+      const items = suggestions.querySelectorAll("li");
+      if (!items.length) return;
+      if (e.key === "ArrowDown") activeIndex = Math.min(activeIndex + 1, items.length - 1);
+      else if (e.key === "ArrowUp") activeIndex = Math.max(activeIndex - 1, 0);
+      else if (e.key === "Enter" && activeIndex >= 0) { chooseCity(items[activeIndex].textContent); return; }
+      else return;
+      e.preventDefault();
+      items.forEach((li, i) => li.classList.toggle("active", i === activeIndex));
+      items.forEach((li, i) => li.setAttribute("aria-selected", i === activeIndex));
+    });
+  </script>
+</body>
+</html>
