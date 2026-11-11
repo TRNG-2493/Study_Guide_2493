@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Practice Store - My account</title></head>
+<body>
+  <h1 id="welcome"></h1>
+  <p id="role"></p>
+  <button id="add">Add to cart</button>
+  <p id="cart">Cart: 0 items</p>
+  <button id="logout">Log out</button>
+
+  <script>
+    const user = localStorage.getItem("user");
+    if (!user) {
+      location.replace("login.html?error=login-required");
+    } else {
+      document.querySelector("#welcome").textContent = `Welcome, ${user}!`;
+      document.querySelector("#role").textContent = user === "admin" ? "Role: Administrator" : "Role: Customer";
+      const showCart = () => {
+        document.querySelector("#cart").textContent =
+          `Cart: ${localStorage.getItem("cart") || 0} items`;
+      };
+      showCart();
+      document.querySelector("#add").addEventListener("click", () => {
+        localStorage.setItem("cart", Number(localStorage.getItem("cart") || 0) + 1);
+        showCart();
+      });
+      document.querySelector("#logout").addEventListener("click", () => {
+        localStorage.clear();
+        document.cookie = "session=; path=/; max-age=0";
+        location.href = "login.html";
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Practice Store - Products</title></head>
+<body>
+  <h1>Products</h1>
+  <label for="sort">Sort by</label>
+  <select id="sort">
+    <option value="az">Name (A to Z)</option>
+    <option value="za">Name (Z to A)</option>
+    <option value="lohi">Price (low to high)</option>
+    <option value="hilo">Price (high to low)</option>
+  </select>
+  <ul id="product-list"></ul>
+
+  <script src="store.js"></script>
+  <script>
+    function renderProducts() {
+      const order = document.querySelector("#sort").value;
+      const list = [...PRODUCTS].sort((a, b) => {
+        if (order === "az") return a.name.localeCompare(b.name);
+        if (order === "za") return b.name.localeCompare(a.name);
+        if (order === "lohi") return a.price - b.price;
+        return b.price - a.price;
+      });
+      const ul = document.querySelector("#product-list");
+      ul.innerHTML = "";
+      list.forEach((p) => {
+        const inCart = getCart().includes(p.name);
+        const li = document.createElement("li");
+        li.className = "product";
+        li.innerHTML = `
+          <h3>${p.name}</h3>
+          <p class="price">${money(p.price)}</p>
+          <button>${inCart ? "Remove" : "Add to cart"}</button>`;
+        li.querySelector("button").addEventListener("click", () => {
+          const cart = getCart();
+          saveCart(inCart ? cart.filter((n) => n !== p.name) : [...cart, p.name]);
+          renderProducts();
+        });
+        ul.appendChild(li);
+      });
+    }
+    document.querySelector("#sort").addEventListener("change", renderProducts);
+    renderProducts();
+  </script>
+</body>
+</html>

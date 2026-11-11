@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Practice Store - Log in</title></head>
+<body>
+  <h1>Log in</h1>
+  <p id="notice"></p>
+  <label for="username">Username</label>
+  <input id="username" type="text">
+  <label for="password">Password</label>
+  <input id="password" type="password">
+  <button id="login">Log in</button>
+  <p id="message" role="status"></p>
+
+  <script>
+    if (new URLSearchParams(location.search).get("error") === "login-required") {
+      document.querySelector("#notice").textContent = "Please log in first";
+    }
+    document.querySelector("#login").addEventListener("click", () => {
+      const user = document.querySelector("#username").value;
+      const pass = document.querySelector("#password").value;
+      const message = document.querySelector("#message");
+      message.textContent = "Checking...";
+      // Simulate a slow server: logging in takes 1 second
+      setTimeout(() => {
+        if (pass === "secret123" && (user === "student" || user === "admin")) {
+          localStorage.setItem("user", user);
+          document.cookie = "session=" + user + "-token; path=/";
+          location.href = "account.html";
+        } else {
+          message.textContent = "Invalid username or password";
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
+
+
+<!-- Logins: student / secret123 and admin / secret123 -->

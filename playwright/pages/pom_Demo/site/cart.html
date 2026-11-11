@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Practice Store - Cart</title></head>
+<body>
+  <h1>Your cart</h1>
+  <table aria-label="Cart items">
+    <thead><tr><th>Product</th><th>Price</th><th></th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <p id="empty">Your cart is empty</p>
+  <p id="subtotal"></p>
+  <a href="products.html">Continue shopping</a>
+  <button id="checkout">Checkout</button>
+
+  <script src="store.js"></script>
+  <script>
+    function renderCart() {
+      const cart = getCart();
+      const body = document.querySelector("tbody");
+      body.innerHTML = "";
+      cart.forEach((name) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${name}</td><td>${money(priceOf(name))}</td><td><button>Remove</button></td>`;
+        tr.querySelector("button").addEventListener("click", () => {
+          saveCart(getCart().filter((n) => n !== name));
+          renderCart();
+        });
+        body.appendChild(tr);
+      });
+      const subtotal = cart.reduce((sum, n) => sum + priceOf(n), 0);
+      document.querySelector("#empty").hidden = cart.length > 0;
+      document.querySelector("#subtotal").textContent = `Subtotal: ${money(subtotal)}`;
+      document.querySelector("#checkout").disabled = cart.length === 0;
+    }
+    document.querySelector("#checkout").addEventListener("click", () => {
+      location.href = "checkout.html";
+    });
+    renderCart();
+  </script>
+</body>
+</html>

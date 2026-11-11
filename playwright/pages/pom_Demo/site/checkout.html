@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Practice Store - Checkout</title></head>
+<body>
+  <h1>Checkout</h1>
+
+  <section id="details">
+    <h2>Your details</h2>
+    <label for="first-name">First name</label>
+    <input id="first-name" type="text">
+    <label for="last-name">Last name</label>
+    <input id="last-name" type="text">
+    <label for="postcode">Postcode</label>
+    <input id="postcode" type="text">
+    <button id="continue">Continue</button>
+    <p id="error" role="alert"></p>
+  </section>
+
+  <section id="summary" hidden>
+    <h2>Order summary</h2>
+    <ul id="summary-items"></ul>
+    <p id="item-total"></p>
+    <p id="tax"></p>
+    <p id="total"></p>
+    <button id="place-order">Place order</button>
+  </section>
+
+  <section id="complete" hidden>
+    <h2>Thank you for your order!</h2>
+    <a href="products.html">Back to products</a>
+  </section>
+
+  <script src="store.js"></script>
+  <script>
+    document.querySelector("#continue").addEventListener("click", () => {
+      const first = document.querySelector("#first-name").value.trim();
+      const last = document.querySelector("#last-name").value.trim();
+      const postcode = document.querySelector("#postcode").value.trim();
+      const error = document.querySelector("#error");
+      if (!first) { error.textContent = "First name is required"; return; }
+      if (!last) { error.textContent = "Last name is required"; return; }
+      if (!postcode) { error.textContent = "Postcode is required"; return; }
+      error.textContent = "";
+
+      const cart = getCart();
+      const itemTotal = cart.reduce((sum, n) => sum + priceOf(n), 0);
+      const tax = Math.round(itemTotal * 0.08 * 100) / 100;
+      document.querySelector("#summary-items").innerHTML =
+        cart.map((n) => `<li>${n} - ${money(priceOf(n))}</li>`).join("");
+      document.querySelector("#item-total").textContent = `Item total: ${money(itemTotal)}`;
+      document.querySelector("#tax").textContent = `Tax: ${money(tax)}`;
+      document.querySelector("#total").textContent = `Total: ${money(itemTotal + tax)}`;
+      document.querySelector("#details").hidden = true;
+      document.querySelector("#summary").hidden = false;
+    });
+    document.querySelector("#place-order").addEventListener("click", () => {
+      saveCart([]);
+      document.querySelector("#summary").hidden = true;
+      document.querySelector("#complete").hidden = false;
+    });
+  </script>
+</body>
+</html>
