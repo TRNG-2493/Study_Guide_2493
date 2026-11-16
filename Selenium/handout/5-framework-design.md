@@ -266,7 +266,7 @@ The **Page Object Model (POM)** is a design pattern in which every page of the a
 
 ### Worked example: page objects for Swag Labs
 
-Page objects are part of the framework, so they live in `src/main/java/com/qea/selenium/pages`.
+Page objects are only used by tests, so they live with the tests, in `src/test/java/com/qea/selenium/pages`.
 
 **Step 1: The test before POM.** It works, but every locator is inside the test. If the login button's id changes, every test that logs in must be edited.
 
@@ -401,7 +401,7 @@ public class LoginPageFactory {
 **Complete code**
 
 ```java
-// src/main/java/com/qea/selenium/pages/LoginPage.java
+// src/test/java/com/qea/selenium/pages/LoginPage.java
 package com.qea.selenium.pages;
 
 import org.openqa.selenium.By;
@@ -448,7 +448,7 @@ public class LoginPage {
 ```
 
 ```java
-// src/main/java/com/qea/selenium/pages/InventoryPage.java
+// src/test/java/com/qea/selenium/pages/InventoryPage.java
 package com.qea.selenium.pages;
 
 import org.openqa.selenium.By;
@@ -491,7 +491,7 @@ public class InventoryPage {
 ```
 
 ```java
-// src/main/java/com/qea/selenium/pages/LoginPageFactory.java
+// src/test/java/com/qea/selenium/pages/LoginPageFactory.java
 package com.qea.selenium.pages;
 
 import org.openqa.selenium.WebDriver;

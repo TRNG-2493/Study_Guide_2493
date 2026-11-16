@@ -70,8 +70,9 @@ In this group you only open pages and read their **title** and **URL**. Finding 
 **Where your code goes**
 
 ```text
-src/main/java/com/qea/selenium/handout/   topics 1.1-1.3: small programs with a main() method
+src/main/java/com/qea/selenium/handout/   topics 1.1-1.3 only: small practice programs with a main() method
 src/test/java/com/qea/selenium/tests/     topic 1.4 onwards: JUnit tests
+src/test/java/com/qea/selenium/pages/     Handout 5: page objects (used only by tests)
 ```
 
 **How to run:** in the IDE, click the green Run arrow next to `main` (or next to a test class). From a terminal, tests run with `mvn test`.
