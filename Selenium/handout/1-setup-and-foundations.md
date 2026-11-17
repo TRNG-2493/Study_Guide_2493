@@ -17,7 +17,9 @@ In this group you only open pages and read their **title** and **URL**. Finding 
 
 ## Before you start: project setup
 
-**You need:** JDK 17 or later, Maven 3.9+, Google Chrome, and an IDE (IntelliJ IDEA or VS Code with the Java extensions). You do **not** need to download a browser driver; topic 1.2 explains why.
+**You need:** JDK 17 or later, Maven 3.9+, Google Chrome, and **VS Code** with the **Extension Pack for Java** (by Microsoft; it includes Maven support and the Test Runner for Java). You do **not** need to download a browser driver; topic 1.2 explains why.
+
+**Open the project in VS Code:** *File → Open Folder* and choose the folder that contains `pom.xml`. Whenever you change `pom.xml`, accept VS Code's prompt to **synchronize the Java classpath** (or run **Java: Clean Java Language Server Workspace** from the Command Palette, `Ctrl+Shift+P`).
 
 **Create a Maven project** with this `pom.xml`:
 
@@ -75,7 +77,11 @@ src/test/java/com/qea/selenium/tests/     topic 1.4 onwards: JUnit tests
 src/test/java/com/qea/selenium/pages/     Handout 5: page objects (used only by tests)
 ```
 
-**How to run:** in the IDE, click the green Run arrow next to `main` (or next to a test class). From a terminal, tests run with `mvn test`.
+**How to run in VS Code:**
+
+- A program with `main`: click **Run** in the small links that appear just above `public static void main`.
+- A test class or test method: click the green ▷ in the left margin next to it, or open the **Testing** view (the flask icon in the left sidebar).
+- From the terminal (*Terminal → New Terminal*): `mvn test` runs all tests.
 
 **Practice sites:** Swag Labs `https://www.saucedemo.com`, a demo shop built for practising test automation, and the-internet `https://the-internet.herokuapp.com`, a collection of small practice pages.
 
@@ -555,7 +561,7 @@ void titleIsSwagLabs() {
 }
 ```
 
-Click the green Run arrow next to the class. One browser opens and closes, and the test turns green.
+Click the green ▷ in the margin next to the class. One browser opens and closes, and the test gets a green tick.
 
 **Step 4: A second test.**
 
@@ -644,7 +650,7 @@ class FirstTest extends BaseTest {
 
 ### Checkpoint
 
-In the IDE's test window:
+In VS Code's **Testing** view (flask icon) or the **Test Results** panel:
 
 ```text
 ✔ FirstTest
