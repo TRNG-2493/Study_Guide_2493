@@ -155,7 +155,7 @@ Not when matching. Cucumber ignores the keyword and matches only the text after 
 <details>
 <summary><b>Show answer</b></summary>
 
-**Imperative** steps describe UI mechanics: "I type standard_user into #user-name, I click #login-button". **Declarative** steps describe intent: "Given I am logged in as standard_user". Declarative is better: business people can read it, and it survives UI changes because the details live in step definitions and page objects.
+**Imperative** steps describe UI mechanics: "I type standard_user into #user-name, I click #login-button". **Declarative** steps describe intent: `When I log in with username "standard_user" and password "secret_sauce"`. Declarative is better: business people can read it, and it survives UI changes because the details live in step definitions and page objects.
 
 </details>
 
@@ -243,8 +243,8 @@ A Java method annotated with `@Given`, `@When` or `@Then` containing a **Cucumbe
 The step text with **placeholders** for values:
 
 ```java
-@When("I log in as {string} with password {string}")
-public void iLogInAs(String username, String password) { ... }
+@When("I log in with username {string} and password {string}")
+public void iLogInWith(String username, String password) { ... }
 
 @Then("the cart badge should show {int}")
 public void theCartBadgeShouldShow(int expected) { ... }
