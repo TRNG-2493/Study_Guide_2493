@@ -1,0 +1,7 @@
+Rough tester notes from an exploratory session (synthetic, safe to paste into Claude).
+Used if you choose a defect-reporting use case.
+
+- checkout, promo SPRING20, cart 3 items ~$80, applied ok, then removed 1 item (cart ~$55), discount still there?? min spend is $60 I think
+- also guest checkout email field accepts "abc@" no error until payment page
+- Chrome only? didn't try firefox
+- happened twice, 2nd time cart total flickered

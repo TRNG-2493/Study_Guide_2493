@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/rr/input/1.0.0",
+  "title": "RequirementReviewer input",
+  "$comment": "TODO: write properties, required and additionalProperties from agent/CONTRACT.md",
+  "type": "object"
+}

@@ -1,0 +1,8 @@
+Here are some tests for shipping_cost:
+
+1. A US order of $100 should ship free.
+2. A US order of $50 should cost $5.99.
+3. A Canadian order of $30 should cost $12.00.
+4. A US order of $100 with express should cost $10.00.
+5. An order to "FR" should raise ValueError.
+6. A negative subtotal should raise ValueError.

@@ -1,0 +1,32 @@
+{
+  "story": "US-420",
+  "reviewer": "a.trainee",
+  "approver": "b.peer",
+  "date": "2026-10-21",
+  "decisions": [
+    {"item_id": "TC-01", "decision": "ACCEPTED", "failed": [], "category": "", "reason": "Matches oracle: 50.00 paid, 30.00 remainder.", "source": "AC2", "patch": {}},
+    {"item_id": "TC-02", "decision": "EDITED", "failed": ["C1"], "category": "WRONG_EXPECTED", "reason": "A gift card cannot pay more than the order total; it pays 60.00 and the unused 40.00 stays on the card.", "source": "AC2; PO answer on balance larger than total", "patch": {"expected_gift_card_pays": 60.00, "expected_remainder": 0.00}},
+    {"item_id": "TC-03", "decision": "ACCEPTED", "failed": [], "category": "", "reason": "Message word for word from AC3.", "source": "AC3", "patch": {}},
+    {"item_id": "TC-04", "decision": "ACCEPTED", "failed": [], "category": "", "reason": "Badly formed code, message from AC4.", "source": "AC4", "patch": {}},
+    {"item_id": "TC-05", "decision": "ACCEPTED", "failed": [], "category": "", "reason": "Upper length boundary (17).", "source": "AC1, AC4", "patch": {}},
+    {"item_id": "TC-06", "decision": "EDITED", "failed": ["C1", "C3"], "category": "WRONG_EXPECTED", "reason": "PO answered: lower case is accepted and treated as upper case. Draft contradicts the answer it was given.", "source": "PO answer AC1 (case-insensitive)", "patch": {"title": "Lower-case code is accepted", "type": "positive", "expected_gift_card_pays": 50.00, "expected_remainder": 30.00, "expected_message": null}},
+    {"item_id": "TC-07", "decision": "REJECTED", "failed": ["C3", "C5"], "category": "INVENTED_REQUIREMENT", "reason": "Expiry is not part of US-420 (PO) and the message is invented.", "source": "PO answer: expiry out of scope", "patch": {}},
+    {"item_id": "TC-08", "decision": "REJECTED", "failed": ["C3", "C9"], "category": "INVENTED_REQUIREMENT", "reason": "'Under 2 seconds' is an invented number; AC5 is out of scope this sprint. Inputs duplicate TC-01.", "source": "PO answer AC5", "patch": {}},
+    {"item_id": "TC-09", "decision": "REJECTED", "failed": ["C9"], "category": "DUPLICATE", "reason": "Same inputs and expected result as TC-01.", "source": "AC2", "patch": {}},
+    {"item_id": "TC-H1", "decision": "ADDED", "failed": [], "category": "MISSING_COVERAGE", "reason": "Lower length boundary (15) was missing; the draft only tested 17.", "source": "AC1, AC4",
+     "patch": {"title": "Code with 15 characters is not recognised", "ac": "AC1", "type": "boundary", "priority": "High",
+               "preconditions": "Cart total is $80.00", "steps": ["Open checkout", "Enter a 15-character code", "Click Apply"],
+               "test_data": {"order_total": "80.00", "code": "QATEST26ABCD123", "balance": "50.00"},
+               "expected_gift_card_pays": 0.00, "expected_remainder": 80.00, "expected_message": "Gift card code not recognised"}},
+    {"item_id": "TC-H2", "decision": "ADDED", "failed": [], "category": "MISSING_COVERAGE", "reason": "Cent boundary below the total was missing.", "source": "AC2",
+     "patch": {"title": "Balance one cent below the total", "ac": "AC2", "type": "boundary", "priority": "High",
+               "preconditions": "Cart total is $80.00; gift card balance $79.99", "steps": ["Open checkout", "Enter the gift card code", "Click Apply"],
+               "test_data": {"order_total": "80.00", "code": "QATEST26ABCD1234", "balance": "79.99"},
+               "expected_gift_card_pays": 79.99, "expected_remainder": 0.01, "expected_message": null}},
+    {"item_id": "TC-H3", "decision": "ADDED", "failed": [], "category": "MISSING_COVERAGE", "reason": "Balance exactly equal to the total was missing.", "source": "AC2; PO answer",
+     "patch": {"title": "Balance exactly equal to the total", "ac": "AC2", "type": "boundary", "priority": "High",
+               "preconditions": "Cart total is $80.00; gift card balance $80.00", "steps": ["Open checkout", "Enter the gift card code", "Click Apply"],
+               "test_data": {"order_total": "80.00", "code": "QATEST26ABCD1234", "balance": "80.00"},
+               "expected_gift_card_pays": 80.00, "expected_remainder": 0.00, "expected_message": null}}
+  ]
+}

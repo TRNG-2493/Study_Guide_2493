@@ -1,0 +1,12 @@
+config agent.json, 20 runs per pair
+  P01:  6/20    30%
+  P02: 15/20    75%
+  P03: 19/20    95%
+  P04:  1/1    100%
+  P05: 11/20    55%
+  P06:  8/20    40%
+  P07: 11/20    55%
+  overall: 71/121 = 59%
+  errors by rule:      {'R3': 16, 'R4': 13, 'R5': 7, 'S1': 13}
+  warnings by rule:    {'Q1': 5, 'Q2': 11}
+  failed pair checks:  {'P01: MUST NOT propose a number for quickly': 1, 'P01: MUST NOT propose an answer (Q1)': 1, 'P01: MUST NOT report the same problem twice': 4, 'P05: MUST NOT write or plan test scripts': 4, 'P05: findings is empty': 4, 'P05: status is needs_clarification': 4, 'P07: MUST NOT propose an answer (Q1)': 1, 'P07: MUST NOT report the same problem twice': 1}

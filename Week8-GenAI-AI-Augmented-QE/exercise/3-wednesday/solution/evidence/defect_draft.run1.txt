@@ -1,0 +1,15 @@
+Title: 15-character gift card code is accepted at checkout
+
+Severity: Critical
+
+Environment: staging, build 4.12.0
+
+Steps to reproduce:
+1. Add items to the cart so the order total is $80.00.
+2. Open checkout and enter the gift card code QATEST26ABCD123 (15 characters).
+3. Click Apply.
+
+Expected result: The message "Gift card code not recognised" is shown and nothing is paid by the gift card (AC1, AC4).
+Actual result: The gift card is applied, pays $50.00 and the remainder is $30.00.
+
+Notes: The validation probably uses a length range of 15-16 instead of exactly 16. This also affects 14-character codes.

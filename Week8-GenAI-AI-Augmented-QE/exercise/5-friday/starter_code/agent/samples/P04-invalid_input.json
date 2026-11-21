@@ -1,0 +1,24 @@
+{
+  "contract_version": "1.0.0",
+  "pair_id": "P04",
+  "category": "invalid_input",
+  "purpose": "Malformed request must be rejected BEFORE it reaches the model.",
+  "input": {
+    "story_id": "420",
+    "title": "Gift",
+    "acceptance_criteria": [],
+    "reviewer_mood": "strict"
+  },
+  "input_should_be_valid": false,
+  "expected_output": null,
+  "expectations": {
+    "must": [
+      "input is rejected by the input contract",
+      "the model is never called"
+    ],
+    "must_not": [
+      "produce any findings"
+    ],
+    "may": []
+  }
+}

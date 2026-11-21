@@ -1,0 +1,10 @@
+| ID | Subtotal | Country | Express | Expected | Technique |
+|----|----------|---------|---------|----------|-----------|
+| T1 | 74.99 | US | no | 5.99 | BVA |
+| T2 | 75.00 | US | no | 0.00 | BVA |
+| T3 | 75.01 | US | no | 0.00 | BVA |
+| T4 | 80.00 | US | yes | 10.00 | EP |
+| T5 | 40.00 | US | yes | 15.99 | EP |
+| T6 | 30.00 | CA | no | 12.00 | EP |
+| T7 | 50.00 | GB | no | raises ValueError | EP |
+| T8 | -0.01 | US | no | raises ValueError | BVA |

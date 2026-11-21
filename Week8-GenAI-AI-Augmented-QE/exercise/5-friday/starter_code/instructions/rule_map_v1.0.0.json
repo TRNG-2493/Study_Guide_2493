@@ -1,0 +1,42 @@
+{
+  "instructions_version": "1.0.0",
+  "entries": [
+    {
+      "section": "Process",
+      "phrase": "copy the exact words that cause it from that criterion into quote",
+      "checks": [
+        "R3"
+      ]
+    },
+    {
+      "section": "Process",
+      "phrase": "Never return more than max_findings findings",
+      "checks": [
+        "R5"
+      ]
+    },
+    {
+      "section": "Rules",
+      "phrase": "Quote exactly, character for character",
+      "checks": [
+        "R3"
+      ]
+    },
+    {
+      "section": "Rules",
+      "phrase": "Ask; never answer",
+      "checks": [
+        "Q1",
+        "HUMAN"
+      ]
+    },
+    {
+      "section": "Rules",
+      "phrase": "one question ending with \"?\"",
+      "checks": [
+        "S1",
+        "Q2"
+      ]
+    }
+  ]
+}

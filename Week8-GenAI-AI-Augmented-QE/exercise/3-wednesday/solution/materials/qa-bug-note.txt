@@ -1,0 +1,9 @@
+Bug note from Priya Raman (QA), staging, 21 Oct
+Env: https://staging.shopfront.example/checkout  build 4.12.0
+Logged in as qa.priya@shopfront-qa.example with password=Staging#2026!
+Auth header from devtools: Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.c2hvcGZyb250LXN0YWdpbmc.k3yQ9
+Copied a gift card code from the production support queue to try it:  Z7KQ4M2PX9LT3B8C
+Then tested my own test card QATEST26ABCD123 (15 chars, one short) with order total 80.00:
+  expected "Gift card code not recognised", got the card applied, paid 50.00, remainder 30.00.
+Customer complaint that started this: order 88213-A, Daniel Okafor, 7 Birch Road, called from 312-555-0199.
+Card on file for the test order: 4111 1111 1111 1111

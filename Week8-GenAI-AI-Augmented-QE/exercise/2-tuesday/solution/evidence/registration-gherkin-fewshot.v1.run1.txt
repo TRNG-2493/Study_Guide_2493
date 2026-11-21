@@ -1,0 +1,49 @@
+@registration
+Feature: Shopper registration
+  Visitors create a ShopFront account.
+
+  Scenario Outline: Reject a username with the wrong length
+    Given I am on the registration page
+    When I register with username "<username>"
+    Then I should see the message "Username must be 4-16 characters"
+
+    Examples:
+      | username          |
+      | abc               |
+      | abcdefghijklmnopq |
+
+  Scenario Outline: Reject a username with characters that are not allowed
+    Given I am on the registration page
+    When I register with username "<username>"
+    Then I should see the message "Username may use a-z, 0-9 and - and must start with a letter"
+
+    Examples:
+      | username |
+      | 1shop    |
+      | Shopper  |
+      | shop_er  |
+
+  Scenario: Reject an email outside the test domains
+    Given I am on the registration page
+    When I register with email "lena@mailbox.test"
+    Then I should see the message "Use an example.com or example.org address"
+
+  Scenario Outline: Reject an age outside the allowed range
+    Given I am on the registration page
+    When I register with age "<age>"
+    Then I should see the message "Age must be between 16 and 99"
+
+    Examples:
+      | age |
+      | 15  |
+      | 100 |
+
+  Scenario Outline: Register with valid details at the boundaries
+    Given I am on the registration page
+    When I register with username "<username>", email "<email>" and age "<age>"
+    Then I should see the message "Welcome to ShopFront, <username>!"
+
+    Examples:
+      | username         | email              | age |
+      | abcd             | abcd@example.com   | 16  |
+      | abcdefghijklmnop | p-16@example.org   | 99  |

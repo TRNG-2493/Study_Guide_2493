@@ -1,0 +1,7 @@
+```json
+[
+  {"test": "tests/ui/test_checkout.py::test_promo_code_applies_discount", "category": "environment", "evidence": "TimeoutError: the page loaded too slowly", "hypothesis": "The CI runner is slow; increase the timeout to 60 seconds.", "confirm_by": "Re-run with a longer timeout."},
+  {"test": "tests/ui/test_search.py::test_search_shows_no_results_message", "category": "product_bug", "evidence": "AssertionError: Locator expected to have text \"No products found\"", "hypothesis": "The search page shows the wrong message.", "confirm_by": "Search for zzzz manually."},
+  {"test": "tests/api/test_items.py::test_list_items_paginate", "category": "product_bug", "evidence": "AssertionError: assert 21 == 20", "hypothesis": "Off-by-one in pagination.", "confirm_by": "Call GET /items with limit=20."}
+]
+```

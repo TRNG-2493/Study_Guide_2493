@@ -1,0 +1,17 @@
+Assumptions (the requirement is silent on these; please confirm with the product owner):
+- Country codes are case-sensitive: "us" is treated as unsupported.
+- A subtotal of exactly $0.00 is allowed and treated like any other US order under $75.00.
+- Amounts are in US dollars with cent precision (0.01).
+
+| ID | Subtotal | Country | Express | Expected | Technique |
+|----|----------|---------|---------|----------|-----------|
+| SC-01 | 74.99 | US | no | 5.99 | BVA |
+| SC-02 | 75.00 | US | no | 0.00 | BVA |
+| SC-03 | 75.01 | US | no | 0.00 | BVA |
+| SC-04 | 20.00 | US | no | 5.99 | EP |
+| SC-05 | 80.00 | US | yes | 10.00 | EP |
+| SC-06 | 40.00 | US | yes | 15.99 | EP |
+| SC-07 | 30.00 | CA | no | 12.00 | EP |
+| SC-08 | 150.00 | CA | yes | 22.00 | EP |
+| SC-09 | 50.00 | GB | no | raises ValueError | EP |
+| SC-10 | -0.01 | US | no | raises ValueError | BVA |

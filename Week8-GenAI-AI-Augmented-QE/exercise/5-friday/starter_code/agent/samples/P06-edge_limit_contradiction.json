@@ -1,0 +1,70 @@
+{
+  "contract_version": "1.0.0",
+  "pair_id": "P06",
+  "category": "edge",
+  "purpose": "A contradiction plus more problems than max_findings allows: highest severity first.",
+  "input": {
+    "story_id": "US-430",
+    "title": "Saved delivery addresses",
+    "acceptance_criteria": [
+      {
+        "id": "AC1",
+        "text": "A shopper can save up to 5 delivery addresses."
+      },
+      {
+        "id": "AC2",
+        "text": "Guests can save a delivery address for their next visit."
+      },
+      {
+        "id": "AC3",
+        "text": "Only registered shoppers have an address book."
+      },
+      {
+        "id": "AC4",
+        "text": "The default address is pre-selected at checkout."
+      }
+    ],
+    "max_findings": 2
+  },
+  "input_should_be_valid": true,
+  "expected_output": {
+    "contract_version": "1.0.0",
+    "story_id": "US-430",
+    "status": "ok",
+    "findings": [
+      {
+        "id": "F-430-01",
+        "ac_id": "AC2",
+        "category": "CONTRADICTION",
+        "quote": "Guests can save a delivery address",
+        "explanation": "AC2 lets guests save an address but AC3 gives an address book only to registered shoppers.",
+        "question": "Can guests save a delivery address, given that only registered shoppers have an address book?",
+        "severity": "high"
+      },
+      {
+        "id": "F-430-02",
+        "ac_id": "AC1",
+        "category": "INCOMPLETE",
+        "quote": "up to 5 delivery addresses",
+        "explanation": "It is not stated what happens when a shopper tries to save a 6th address.",
+        "question": "What happens when a shopper tries to save a 6th delivery address?",
+        "severity": "medium"
+      }
+    ],
+    "open_questions": []
+  },
+  "expectations": {
+    "must": [
+      "status is ok",
+      "exactly 2 findings or fewer",
+      "the AC2/AC3 contradiction is one of them"
+    ],
+    "must_not": [
+      "more than 2 findings",
+      "drop the contradiction in favour of a low-severity finding"
+    ],
+    "may": [
+      "quote AC3 instead of AC2 for the contradiction"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "contract_version": "1.0.0",
+  "pair_id": "P0X",
+  "category": "happy_path | edge | clarification | invalid_input | out_of_scope",
+  "purpose": "One sentence: what behaviour this pair pins down.",
+  "input": {},
+  "input_should_be_valid": true,
+  "expected_output": {},
+  "expectations": {
+    "must": ["properties every good reply MUST have, written from the requirement"],
+    "must_not": ["what a reply must never do"],
+    "may": ["acceptable variation"]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "story_id": "US-450",
+  "title": "Loyalty points at checkout",
+  "acceptance_criteria": [
+    {"id": "AC1", "text": "TBD by the loyalty team."},
+    {"id": "AC2", "text": "Points rules to be confirmed later."}
+  ]
+}

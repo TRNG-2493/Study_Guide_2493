@@ -1,0 +1,16 @@
+Assumptions I made because the requirement is silent:
+1. "us" (lower case) is not a supported code and raises ValueError. Please confirm.
+2. A $0.00 subtotal is a valid US order under $75.00.
+
+| ID | Subtotal | Country | Express | Expected | Technique |
+|----|----------|---------|---------|----------|-----------|
+| 1 | 0.00 | US | no | 5.99 | BVA |
+| 2 | 74.99 | US | no | 5.99 | BVA |
+| 3 | 75.00 | US | no | 0.00 | BVA |
+| 4 | 75.01 | US | no | 0.00 | BVA |
+| 5 | 75.00 | US | yes | 10.00 | BVA |
+| 6 | 74.99 | US | yes | 15.99 | BVA |
+| 7 | 12.50 | CA | no | 12.00 | EP |
+| 8 | 99.00 | CA | yes | 22.00 | EP |
+| 9 | 60.00 | MX | no | raises ValueError | EP |
+| 10 | -1.00 | CA | no | raises ValueError | BVA |

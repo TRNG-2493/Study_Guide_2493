@@ -1,0 +1,13 @@
+```json
+[
+  {"id": "SC-01", "title": "US one cent below free threshold", "subtotal": 74.99, "country": "US", "express": false, "expected": 5.99, "technique": "BVA"},
+  {"id": "SC-02", "title": "US exactly at free threshold", "subtotal": 75.00, "country": "US", "express": false, "expected": 0.0, "technique": "BVA"},
+  {"id": "SC-03", "title": "US one cent above free threshold", "subtotal": 75.01, "country": "US", "express": false, "expected": 0.0, "technique": "BVA"},
+  {"id": "SC-04", "title": "US express on a free-shipping order", "subtotal": 80.00, "country": "US", "express": true, "expected": 10.0, "technique": "EP"},
+  {"id": "SC-05", "title": "US express on a paid order", "subtotal": 40.00, "country": "US", "express": true, "expected": 15.99, "technique": "EP"},
+  {"id": "SC-06", "title": "Canada flat rate on a large order", "subtotal": 150.00, "country": "CA", "express": false, "expected": 12.0, "technique": "EP"},
+  {"id": "SC-07", "title": "Canada express", "subtotal": 20.00, "country": "CA", "express": true, "expected": 22.0, "technique": "EP"},
+  {"id": "SC-08", "title": "Unsupported country", "subtotal": 50.00, "country": "GB", "express": false, "expected": "ValueError", "technique": "EP"},
+  {"id": "SC-09", "title": "Negative subtotal", "subtotal": -0.01, "country": "US", "express": false, "expected": "ValueError", "technique": "BVA"}
+]
+```

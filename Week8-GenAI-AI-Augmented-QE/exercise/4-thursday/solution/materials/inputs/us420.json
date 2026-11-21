@@ -1,0 +1,11 @@
+{
+  "story_id": "US-420",
+  "title": "Pay with a gift card at checkout",
+  "acceptance_criteria": [
+    {"id": "AC1", "text": "A gift card code is 16 characters: letters A-Z and digits only."},
+    {"id": "AC2", "text": "The gift card pays as much of the order total as its balance allows; any remainder is paid by card."},
+    {"id": "AC3", "text": "A gift card with a zero balance shows \"This gift card has no balance\"."},
+    {"id": "AC4", "text": "An unknown or badly formed code shows \"Gift card code not recognised\"."},
+    {"id": "AC5", "text": "The gift card should be applied quickly."}
+  ]
+}

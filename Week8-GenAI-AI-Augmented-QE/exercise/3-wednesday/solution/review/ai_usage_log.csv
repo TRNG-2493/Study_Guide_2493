@@ -1,0 +1,5 @@
+date,who,tool,purpose,data_class,redacted,artifact,reviewed_by,outcome
+2026-10-21,a.trainee,claude,requirements review US-420,internal,no,evidence/findings.run1.txt,a.trainee,5 kept 2 discarded
+2026-10-21,a.trainee,claude,test case draft US-420,internal,no,evidence/suite_draft.run1.txt,a.trainee,4 accepted 2 edited 3 rejected 3 added
+2026-10-21,a.trainee,claude,test data draft US-420,internal,no,evidence/data_draft.run1.txt,a.trainee,6 rows changed or removed
+2026-10-21,a.trainee,claude,defect report draft,internal,yes,evidence/defect_draft.run1.txt,a.trainee,edited severity and one invented claim

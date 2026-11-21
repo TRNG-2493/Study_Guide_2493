@@ -1,0 +1,11 @@
+Here are some tests for the shipping feature:
+
+1. Test that shipping is free for large orders.
+2. Test that shipping costs money for small orders.
+3. Test that free shipping only applies once per customer per month.
+4. Test that the country code is case-insensitive ("us" works like "US").
+5. Test that express shipping is faster.
+6. Test that shipping to an unsupported country shows an error message.
+7. Test that PO boxes are rejected.
+
+These should give you good coverage of the shipping logic!
