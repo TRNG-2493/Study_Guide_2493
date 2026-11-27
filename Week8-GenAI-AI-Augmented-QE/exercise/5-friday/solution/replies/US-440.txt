@@ -1,7 +1,0 @@
-{
-  "contract_version": "1.0.0",
-  "story_id": "US-440",
-  "status": "ok",
-  "findings": [],
-  "open_questions": []
-}

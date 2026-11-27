@@ -1,5 +1,0 @@
-[
-  {"test": "tests/ui/test_checkout.py::test_promo_code_applies_discount", "category": "test_bug", "evidence": "- element is not enabled", "hypothesis": "The test clicks Apply before typing a promo code, and the button stays disabled until a code is entered.", "confirm_by": "Read the test: check whether fill() on the promo field happens before click(); swap them and re-run."},
-  {"test": "tests/ui/test_search.py::test_search_shows_no_results_message", "category": "needs_clarification", "evidence": "Actual value: \"No results for 'zzzz'\"", "hypothesis": "The page text and the test's expected text differ; either the UI copy changed or the test is outdated.", "confirm_by": "Ask the product owner which message is the requirement, then check the UI copy history."},
-  {"test": "tests/api/test_items.py::test_list_items_paginates", "category": "product_bug", "evidence": "AssertionError: assert 21 == 20", "hypothesis": "The items API returns one item more than the page size: an off-by-one in pagination.", "confirm_by": "Call GET /items with limit=20 and count the items; compare with the API contract."}
-]

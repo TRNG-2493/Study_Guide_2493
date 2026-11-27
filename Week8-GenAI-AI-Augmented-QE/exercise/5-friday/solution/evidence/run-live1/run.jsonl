@@ -1,1 +1,0 @@
-{"run_id": "live1", "story_id": "US-470", "outcome": "PASS", "agent_version": "1.0.0", "instructions_version": "1.0.0", "template": "rr_user@1.0.0", "contract_version": "1.0.0", "model": "saved", "model_settings": {"temperature": 0, "max_tokens": 2000}, "prompt_fingerprint": "f0612d1fb29e", "errors": [], "warnings": [], "timestamp": "2026-10-19T12:05:39+00:00"}

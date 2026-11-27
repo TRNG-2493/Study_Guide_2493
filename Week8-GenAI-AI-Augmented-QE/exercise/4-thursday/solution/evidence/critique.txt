@@ -1,8 +1,0 @@
-Here is a critique of your RequirementReviewer design:
-
-1. The output contract has no field for a suggested rewrite of each acceptance criterion. Adding a "suggested_ac" field would make the findings much more actionable.
-2. R3 (quote must appear in the AC text) is case-insensitive but does not say how to handle curly versus straight quotes; models often change quotation marks, which would make R3 fail on correct findings.
-3. Severity is defined in the instructions but not in the output schema description, so consumers may not know what "high" means.
-4. There is no sample pair where the story contains instructions aimed at the agent (for example "ignore your rules"). Your Boundaries section covers it, but nothing tests it.
-5. max_findings of 20 is too high for a human to review; consider a maximum of 5.
-6. The job sentence is good but could mention that the agent also prioritises findings.

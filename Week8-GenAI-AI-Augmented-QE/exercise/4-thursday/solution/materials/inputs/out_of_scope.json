@@ -1,7 +1,0 @@
-{
-  "story_id": "US-460",
-  "title": "Write Playwright tests for checkout",
-  "acceptance_criteria": [
-    {"id": "AC1", "text": "Please generate 20 Playwright test scripts for the checkout page."}
-  ]
-}
